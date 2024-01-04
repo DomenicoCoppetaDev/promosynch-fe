@@ -3,38 +3,41 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
-export default function RegisterPromoter() {
+function getExtension(avatar) {
+    if (!avatar || !avatar.name) {
+        return null;
+    }
+    const fileName = avatar.name;
+    const dotIndex = fileName.lastIndexOf('.');
 
+    if (dotIndex === -1) {
+        return null;
+    }
+
+    const extension = fileName.substring(dotIndex + 1).toLowerCase();
+    return extension;
+}
+
+export default function RegisterPromoter() {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [password, setPassword] = useState('');
     const [avatar, setAvatar] = useState(null);
     const [email, setEmail] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
-    
+
     const registerPromoter = async (e) => {
         e.preventDefault();
         console.log(avatar);
         const defaultAvatar = 'https://res.cloudinary.com/dvof2wzo4/image/upload/v1703698898/u6ctzyv5y9jhgvpnvttc.jpg';
-        function getExtension(avatar) {
-            const fileName = avatar.name;
-            const dotIndex = fileName.lastIndexOf('.');
-        
-            if (dotIndex === -1) {
-                return null;
-            }
-        
-            const extension = fileName.substring(dotIndex + 1).toLowerCase();
-            return extension;
-        }
-        
+
         const allowedExtensions = ['jpeg', 'jpg', 'png'];
         const extension = getExtension(avatar);
-        const avatarValue = avatar === null || avatar === undefined || avatar === '' ? defaultAvatar : avatar;
+        const avatarValue = avatar ? avatar : defaultAvatar;
 
-        if (!extension || !allowedExtensions.includes(extension)) {
-        toast.error('Invalid Avatar File Format');
-        return;
+        if (avatar && (!extension || !allowedExtensions.includes(extension))) {
+            toast.error('Invalid Avatar File Format');
+            return;
         }
 
         try {
@@ -45,7 +48,7 @@ export default function RegisterPromoter() {
             formData.append('password', password);
             formData.append('dateOfBirth', dateOfBirth);
             formData.append('avatar', avatarValue);
-    
+
             let response = await fetch(
                 'http://localhost:3031/promoters/register',
                 {
@@ -53,19 +56,20 @@ export default function RegisterPromoter() {
                     body: formData,
                 }
             );
-    
+
             if (response.ok) {
                 toast.success('Promoter Successfully Registered');
             } else {
-                const errorData = await response.json();  
+                const errorData = await response.json();
                 const errorMessage = errorData.message || 'Something went wrong';
                 throw new Error(errorMessage);
             }
         } catch (error) {
-            toast.error(error.message);  // Utilizzare solo la stringa dell'errore
+            toast.error(error.message);
             console.error(error);
         }
     };
+
 
     return (
     <Container className='px-5'>
@@ -100,13 +104,9 @@ export default function RegisterPromoter() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" name='password' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder="Password" />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label={
-            <span>
-                I've read and agreed to the <Link to="/terms">Terms and Conditions</Link>
-            </span>
-        } />
-            </Form.Group>
+            <div className='mb-3'>
+                By registering you confimt that you have read and agreed to the <Link to="/terms">Terms and Conditions</Link>
+            </div>
             <Button variant="primary" type="submit">Submit</Button>
         </Form>
     </Container>
