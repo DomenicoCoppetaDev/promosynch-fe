@@ -32,6 +32,7 @@ export default function Login() {
         const data = await response.json()
 
         if (data.token) {
+            localStorage.clear();
             localStorage.setItem("promoterId", data.promoterId)
             localStorage.setItem("token", data.token)
          }

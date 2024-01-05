@@ -21,7 +21,7 @@ function App() {
         <Route path='/' exact element={<Login />} />
         <Route path='/promoters/register' element={<RegisterPromoter />} />
         <Route path='/promoters/:id/update' element={<UpdatePromoter />} />
-        <Route path='/promoters/:id/profile' element={<ProfilePromoter />} />
+        <Route path='/promoters/:id' element={<ProfilePromoter />} />
         <Route path='/events/create' element={<CreateHappening />} />
         <Route path='/terms' element={<Terms />} />
         <Route path='/promoters/:id/dashboard' element={<Dashboard />} />
