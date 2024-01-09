@@ -3,6 +3,7 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/activeUser';
 
 
 
@@ -11,6 +12,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -35,6 +37,7 @@ export default function Login() {
             localStorage.clear();
             localStorage.setItem("promoterId", data.promoterId)
             localStorage.setItem("token", data.token)
+            login(data.promoterId);
          }
 
          navigate(`/promoters/${data.promoterId}/dashboard`)
@@ -47,6 +50,7 @@ export default function Login() {
                 <Form.Group className="mb-3"  controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control 
+                        required
                         type="email" 
                         name='email' 
                         value={email} 
@@ -58,15 +62,12 @@ export default function Login() {
                     </Form.Group>
                 <Form.Group className="mb-3"  controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" name='password' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder="Password" />
+                    <Form.Control required type="password" name='password' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder="Password" />
                 </Form.Group>
                     <Button className='mx-2' type="submit">Login</Button>
             </Form>
                     <Link to={`/promoters/register`}>
                         <Button className='mx-2'>Register</Button>
-                    </Link>
-                    <Link to={`/events/create`}>
-                        <Button className='mx-2'>Create Event</Button>
                     </Link>
         </Container>
     )

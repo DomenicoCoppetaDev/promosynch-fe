@@ -2,15 +2,18 @@ import React from 'react';
 import { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from "react-toastify";
+import HappeningsList from "./HappeningsList";
+import { Col } from "react-bootstrap";
 
 
 export default function HappeningsArea() {
 
 const { id } = useParams();
-const [happenings,  setEvents] = useState(); 
+const [happenings,  setHappenings] = useState([]);
+
 
 useEffect(() => {
-        fetch ( `http://localhost:3031/events/?promoterId=${id}`, {
+        fetch ( 'http://localhost:3031/events/promoter/'+ id, {
             method: 'GET',
             redirect: 'follow'
            })
@@ -19,8 +22,7 @@ useEffect(() => {
             return r.json();
         })
         .then((data) => {
-            setEvents(data);
-            console.log(happenings)
+            setHappenings(data);
         })
         .catch((error) => {
             toast.error(error.message);
@@ -29,4 +31,10 @@ useEffect(() => {
         }, [id]);
 
 
+    return (
+        <Col className="text-center py-3 px-3">
+            <h4>Your Events</h4>
+            <HappeningsList happeningsToShow={happenings}/>
+        </Col>
+    )
 }

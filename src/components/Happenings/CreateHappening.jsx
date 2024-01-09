@@ -1,8 +1,10 @@
 import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../context/activeUser';
 
 function getExtension(cover) {
+
     if (!cover || !cover.name) {
         return null;
     }
@@ -19,6 +21,8 @@ function getExtension(cover) {
 
 export default function CreateHappening() {
 
+    const { isLoggedIn } = useAuth();
+    console.log(isLoggedIn);
     const [title, setTitle] = useState('');
     const [dateStart, setDateStart] = useState('');
     const [dateEnd, setDateEnd] = useState('');

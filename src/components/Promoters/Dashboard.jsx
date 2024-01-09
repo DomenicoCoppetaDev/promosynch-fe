@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row, Image } from "react-bootstrap";
 import { toast } from "react-toastify";
+import ToolBar from "../Toolbar/Toolbar.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import HappeningsArea from '../Happenings/HappeningsArea.jsx';
 
@@ -9,9 +10,7 @@ export default function Dashboard() {
   const [promoter, setPromoter] = useState();
 
   useEffect(() => {
-    const endPoint = 'http://localhost:3031/promoters/' + id;
-    console.log(endPoint);
-    fetch(endPoint, {
+    fetch('http://localhost:3031/promoters/' + id, {
       method: 'GET',
       redirect: 'follow'
     })
@@ -30,11 +29,9 @@ export default function Dashboard() {
 
     return (
         <Container>
-            <Row>Your Events</Row>
             <Row>
                 <HappeningsArea />
-            </Row>
-        </Container>
+        </Row>
+      </Container>
     );
 }
-

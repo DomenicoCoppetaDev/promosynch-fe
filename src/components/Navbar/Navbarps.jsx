@@ -25,6 +25,7 @@ export default function Navbarps() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
+                  <Nav.Link href={`/`}>Login</Nav.Link>
                   <Nav.Link href={`/promoters/${id}/dashboard`}>Dashboard</Nav.Link>
                   <Nav.Link href="/events/create">Create Event</Nav.Link>
                   <Nav.Link href={`/promoters/${id}`}>Profile</Nav.Link>

@@ -71,20 +71,20 @@ export default function RegisterPromoter() {
     };
 
 
-    return (
+    return ( 
     <Container className='px-5'>
         <Form onSubmit={registerPromoter}>
             <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Name</Form.Label>
-                <Form.Control type="string" name='name' value={name} onChange={(e) => {setName(e.target.value)}} placeholder="Enter Name" />
+                <Form.Control required type="text" name='name' value={name} onChange={(e) => {setName(e.target.value)}} placeholder="Enter Name" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicSurname">
                 <Form.Label>Surname</Form.Label>
-                <Form.Control type="string" name='surname' value={surname} onChange={(e) => {setSurname(e.target.value)}}  placeholder="Enter Surname" />
+                <Form.Control required type="text" name='surname' value={surname} onChange={(e) => {setSurname(e.target.value)}}  placeholder="Enter Surname" />
             </Form.Group>
             <Form.Group className="mb-3"  controlId="formDateOfBirth">
                 <Form.Label>Date Of Birth</Form.Label>
-                <Form.Control type="date" name='dateOfBirth' value={dateOfBirth} onChange={(e) => {setDateOfBirth(e.target.value)}} />
+                <Form.Control required type="date" name='dateOfBirth' value={dateOfBirth} onChange={(e) => {setDateOfBirth(e.target.value)}} />
             </Form.Group>
             <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Profile Picture</Form.Label>
@@ -95,17 +95,17 @@ export default function RegisterPromoter() {
             </Form.Group>
             <Form.Group className="mb-3"  controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" name='email' value={email} onChange={(e) => {setEmail(e.target.value)}} placeholder="Enter email" />
+                <Form.Control required type="email" name='email' value={email} onChange={(e) => {setEmail(e.target.value)}} placeholder="Enter email" />
                 <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
                 </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3"  controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" name='password' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder="Password" />
+              <Form.Control required type="password" name='password' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder="Password" />
             </Form.Group>
             <div className='mb-3'>
-                By registering you confimt that you have read and agreed to the <Link to="/terms">Terms and Conditions</Link>
+                By registering you reading and agreed to the <Link to="/terms">Terms and Conditions</Link>
             </div>
             <Button variant="primary" type="submit">Submit</Button>
         </Form>

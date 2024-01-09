@@ -10,9 +10,8 @@ export default function ProfilePromoter() {
 
   useEffect(() => {
     console.log(id);
-    const endPoint = 'http://localhost:3031/promoters/' + id;
-    console.log(endPoint);
-    fetch(endPoint, {
+    
+    fetch('http://localhost:3031/promoters/' + id, {
       method: 'GET',
       redirect: 'follow'
     })
@@ -21,7 +20,6 @@ export default function ProfilePromoter() {
         return r.json();
       })
       .then((data) => {
-        // Modifica la data di nascita nel formato desiderato
         data.dateOfBirthFormatted = formatDate(data.dateOfBirth);
 
         setPromoter(data);
