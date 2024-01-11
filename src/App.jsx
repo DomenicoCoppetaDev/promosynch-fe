@@ -36,7 +36,7 @@ function App() {
   }, []);
   return (
     <AuthProvider>
-    <BrowserRouter>
+
       <Navbarps/>
       <Routes>
         <Route path='/' exact element={<Login />} />
@@ -48,9 +48,9 @@ function App() {
         <Route path='/terms' element={<Terms />} />
         <Route path='/promoters/:id/dashboard' element={<Dashboard />} />
       </Routes>
-      <ToolBar/>
+      <ToolBar/> 
       <ToastContainer position="bottom-right" />
-    </BrowserRouter>
+
     </AuthProvider>
   );
 }

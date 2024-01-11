@@ -7,6 +7,7 @@ import { PencilSquare } from "react-bootstrap-icons";
 export default function ProfilePromoter() {
   const { id } = useParams();
   const [promoter, setPromoter] = useState();
+  console.log('promter ID = ' + id);
 
   useEffect(() => {
     console.log(id);

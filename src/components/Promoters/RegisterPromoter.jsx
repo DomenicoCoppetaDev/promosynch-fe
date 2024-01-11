@@ -2,6 +2,7 @@ import { Form, Button, Container } from 'react-bootstrap';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng,} from 'react-places-autocomplete';
 
 function getExtension(avatar) {
     if (!avatar || !avatar.name) {

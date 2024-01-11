@@ -4,10 +4,12 @@ import { toast } from "react-toastify";
 import ToolBar from "../Toolbar/Toolbar.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 import HappeningsArea from '../Happenings/HappeningsArea.jsx';
+import { Spinner } from "react-bootstrap";
 
 export default function Dashboard() {
   const { id } = useParams();
   const [promoter, setPromoter] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('http://localhost:3031/promoters/' + id, {
@@ -20,10 +22,12 @@ export default function Dashboard() {
     })
     .then((data) => {
         setPromoter(data);
+        setLoading(false); 
       })
       .catch((error) => {
         toast.error(error.message);
         console.error(error);
+        setLoading(false);
       });
   }, [id]);
 
@@ -31,7 +35,7 @@ export default function Dashboard() {
         <Container>
             <Row>
                 <HappeningsArea />
-        </Row>
+            </Row>
       </Container>
     );
 }
