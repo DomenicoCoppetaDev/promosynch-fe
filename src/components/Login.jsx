@@ -3,7 +3,7 @@ import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/activeUser';
+import { toast } from 'react-toastify';
 
 
 
@@ -12,14 +12,12 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const { login } = useAuth();
 
     const handleLogin = async (e) => {
         e.preventDefault()
 
         const response = await fetch(
-            'http://localhost:3031/promoters/session',
-            {
+            'http://localhost:3031/promoters/session',{
                method: "POST",
                headers: {
                   "Content-Type": "application/json",
@@ -37,10 +35,11 @@ export default function Login() {
             localStorage.clear();
             localStorage.setItem("promoterId", data.promoterId)
             localStorage.setItem("token", data.token)
-            login(data.promoterId);
+            navigate(`/promoters/${data.promoterId}/dashboard`)
+         } else {
+            toast.error(data.message)
          }
 
-         navigate(`/promoters/${data.promoterId}/dashboard`)
         }
     
     return (

@@ -22,7 +22,7 @@ export default function useJwt() {
     useEffect(() => {
 
         if (!promoterData.promoterId || !promoterData.token) {
-            navigate('/home')
+            navigate('/')
         }
 
         if (window.location.search) {

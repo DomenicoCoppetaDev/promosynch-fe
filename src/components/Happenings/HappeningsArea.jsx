@@ -21,8 +21,8 @@ useEffect(() => {
             if (!r.ok) throw new Error('No Events Found');
             return r.json();
         })
-        .then((data) => {
-            setHappenings(data);
+        .then((happenings) => {
+            setHappenings(happenings);
         })
         .catch((error) => {
             toast.error(error.message);

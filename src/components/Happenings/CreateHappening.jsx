@@ -1,7 +1,7 @@
 import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAuth } from '../../context/activeUser';
+import { useNavigate } from 'react-router-dom';
 
 function getExtension(cover) {
 
@@ -21,8 +21,7 @@ function getExtension(cover) {
 
 export default function CreateHappening() {
 
-    const { isLoggedIn } = useAuth();
-    console.log(isLoggedIn);
+
     const [title, setTitle] = useState('');
     const [dateStart, setDateStart] = useState('');
     const [dateEnd, setDateEnd] = useState('');
@@ -30,6 +29,9 @@ export default function CreateHappening() {
     const [ticketPrice, setTicketPrice] = useState('');
     const [location, setLocation] = useState('');
     const [description, setDescription] = useState('');
+    const navigate = useNavigate();
+    const promoterId = localStorage.getItem('promoterId');
+    const token = localStorage.getItem('token');
     
     const createHappening = async (e) => {
         e.preventDefault();
@@ -70,6 +72,7 @@ export default function CreateHappening() {
     
             if (response.ok) {
                 toast.success('Event Successfully Created');
+                navigate(`/promoters/${promoterId}/dashboard`);
             } else {
                 const errorData = await response.json();  
                 const errorMessage = errorData.message || 'Something went wrong';

@@ -2,31 +2,26 @@ import { Container } from 'react-bootstrap';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 import { Calendar3, PeopleFill, PlusCircle } from 'react-bootstrap-icons';
-import { useAuth } from '../../context/activeUser';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function ToolBar( {promoterId}) {
+export default function ToolBar() {
+  const promoterId = localStorage.getItem('promoterId');
+  const token = localStorage.getItem('token');
 
-    console.log(promoterId);
+  const navigate = useNavigate();
 
-    const { isLoggedIn } = useAuth();
-    const navigate = useNavigate();
-
-    console.log('stato isLoggedIn =' + isLoggedIn)
-
-    const handleNavigate = (path) => {
+  const handleNavigate = (path) => {
         navigate(path);
     };
 
-  return isLoggedIn ? (
-    <Container
-      fluid
+  return (
+    <Container fluid
       className={cn(styles.toolbar, 'd-flex', 'bg-primary', 'fixed-bottom', 'align-items-center', 'text-white', 'justify-content-evenly')}
-    >
-      <Calendar3 onClick={() => handleNavigate('/')} />
+      >
+      <Calendar3 onClick={() => handleNavigate(`/promoters/${promoterId}/dashboard`)} />
       <PlusCircle className={cn(styles.plus)} onClick={() => handleNavigate('/events/create')}/>
-      <PeopleFill />
+      <PeopleFill onClick={() => handleNavigate('/clients')} />
     </Container>
-  ) : null;
+  )
 }

@@ -3,21 +3,15 @@ import React, { createContext, useContext, useState } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [promoterId, setPromoterId] = useState(null);
 
-  const login = (id) => {
-    setPromoterId(id);
-    setIsLoggedIn(true);
-  };
+  const promoterId = localStorage.getItem('promoterId');
+  const token = localStorage.getItem('token');
 
-  const logout = () => {
-    setPromoterId(null);
-    setIsLoggedIn(false);
-  };
+  const isLoggedIn = !!promoterId && !!token;
 
+  
   return (
-    <AuthContext.Provider value={{ isLoggedIn, promoterId, login, logout }}>
+    <AuthContext.Provider value={{ promoterId, token, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );

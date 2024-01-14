@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row, Image } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -7,39 +8,50 @@ import { PencilSquare } from "react-bootstrap-icons";
 export default function ProfilePromoter() {
   const { id } = useParams();
   const [promoter, setPromoter] = useState();
+  const navigate = useNavigate();
+
   console.log('promter ID = ' + id);
 
   useEffect(() => {
-    console.log(id);
+   
+    const promoterId = localStorage.getItem('promoterId');
+    const token = localStorage.getItem('token');
+    console.log('promoter token =  ' + token)
     
-    fetch('http://localhost:3031/promoters/' + id, {
+    if (!promoterId || !token) {
+      navigate('/');
+    }
+
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const year = date.getFullYear();
+  
+      return `${day}-${month}-${year}`;
+    }
+    
+    fetch(`http://localhost:3031/promoters/${promoterId}`, {
       method: 'GET',
-      redirect: 'follow'
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
       .then((r) => {
         if (!r.ok) throw new Error('Promoter Not Found');
         return r.json();
       })
-      .then((data) => {
-        data.dateOfBirthFormatted = formatDate(data.dateOfBirth);
-
-        setPromoter(data);
+      .then((promoter) => {
+        promoter.dateOfBirthFormatted = formatDate(promoter.dateOfBirth);
+        setPromoter(promoter);
       })
       .catch((error) => {
         toast.error(error.message);
         console.error(error);
       });
-  }, [id]);
+  }, []);
 
   // Funzione per formattare la data nel formato gg-mm-aaaa
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-
-    return `${day}-${month}-${year}`;
-  };
 
     return (
         promoter && (
@@ -60,4 +72,3 @@ export default function ProfilePromoter() {
         )
     );
 }
-
