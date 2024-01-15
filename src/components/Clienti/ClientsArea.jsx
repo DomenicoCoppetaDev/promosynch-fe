@@ -3,7 +3,8 @@ import { useEffect, useState} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import ClientsList from "./ClientsList.jsx";
-import { Col } from "react-bootstrap";
+import ClientsDropdownFilter from './ClientsDropdownFilter.jsx';
+import { Col, Row } from "react-bootstrap";
 
 
 export default function ClientsArea() {
@@ -21,7 +22,6 @@ useEffect(() => {
         navigate('/');
     }
   }, []);
-
 
 useEffect(() => {
         fetch ( 'http://localhost:3031/clients/promoter/'+ promoterId, {
@@ -43,9 +43,19 @@ useEffect(() => {
 
 
     return (
-        <Col className="text-center py-3 px-3">
-            <h4>Your Clients</h4>
-            <ClientsList clientsToShow={clients}/>
-        </Col>
+        <>
+        <Row>
+        <h4>Your Clients</h4>
+        </Row>
+        <Row>
+            <ClientsDropdownFilter />
+        </Row>
+        <Row>
+            <Col className="text-center py-3 px-3">
+                <ClientsList clientsToShow={clients}/>
+            </Col>
+        </Row>
+        </>
     )
+
 }

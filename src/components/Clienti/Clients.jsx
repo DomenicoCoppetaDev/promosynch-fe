@@ -3,7 +3,7 @@ import { Container, Row, Spinner, Dropdown, DropdownButton} from "react-bootstra
 import { toast } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
 import ClientsArea from './ClientsArea.jsx';
-import ClientsDropdownFilter from './dropdown/ClientsDropdownFilter.jsx'
+import ClientsDropdownFilter from './ClientsDropdownFilter.jsx';
 
 
 export default function Clients() {
@@ -23,9 +23,6 @@ export default function Clients() {
 
     return (
         <Container>
-            <Row>
-                <ClientsDropdownFilter />
-            </Row>
             <Row>
                 <ClientsArea />
             </Row>

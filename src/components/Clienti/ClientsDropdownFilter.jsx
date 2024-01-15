@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Container, Row, Spinner, DropdownButton, Dropdown} from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import SingleDropdownOption from "./SingleDropdownOption.jsx";
-
 
 export default function ClientsDropdownFilter() {
   
   const [ happenings, setHappenings ] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const promoterId = localStorage.getItem('promoterId');
   const token = localStorage.getItem('token');
   
@@ -30,14 +29,23 @@ export default function ClientsDropdownFilter() {
     });
   }, [promoterId]);
 
+  const handleEventSelect = (event) => {
+    setSelectedEvent(event);
+  };
+
+
+
   return (
-
-      <DropdownButton id="dropdown-basic-button" title="Select Event">
+      <>
+      <div>
+        <select id="dropdown" variant='primary'>
+          <option className="dropdown-item" value='all' href="#">Select Events</option>
         {happenings.map((happening) =>( 
-          <SingleDropdownOption happening={happening} key={happening._id}/>
-      ))}
-      </DropdownButton>
-
+          <option className="dropdown-item" value={happening._id} key={happening._id} href="#">{happening.title}</option>
+        ))}
+        </select>
+      </div>
+      </>
     )
 
 }
