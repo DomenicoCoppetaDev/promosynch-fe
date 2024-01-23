@@ -1,28 +1,21 @@
 
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Form, Row, Image } from "react-bootstrap";
+import { Button, Col, Container, Card, Row, Image } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Form } from "react-router-dom";
 import { PencilSquare } from "react-bootstrap-icons";
+import styles from './styles.module.scss';
+import cn from 'classnames';
+import useJwt from '../../hook/useJwt.js';
 
 export default function ProfilePromoter() {
   const { id } = useParams();
   const [promoter, setPromoter] = useState();
   const navigate = useNavigate();
-
-  console.log('promter ID = ' + id);
-
+  const { promoterId, token } = useJwt();
+  
   useEffect(() => {
-   
-    const promoterId = localStorage.getItem('promoterId');
-    const token = localStorage.getItem('token');
-    console.log('promoter token =  ' + token)
-    
-    if (!promoterId || !token) {
-      navigate('/');
-    }
-
-    const formatDate = (dateString) => {
+      const formatDate = (dateString) => {
       const date = new Date(dateString);
       const day = date.getDate().toString().padStart(2, '0');
       const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -49,26 +42,36 @@ export default function ProfilePromoter() {
         toast.error(error.message);
         console.error(error);
       });
-  }, []);
+  }, [id]);
 
-  // Funzione per formattare la data nel formato gg-mm-aaaa
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
 
-    return (
-        promoter && (
-        <Container>
-            <Row>Promoter Info</Row>
-            <Row>
-                <Col xs={12} md={4}>
-                    {promoter.avatar && <Image className='rounded-circle' src={promoter.avatar} alt="Promoter Avatar" />}
-                </Col>
-                <Col xs={12} md={8}>
-                    <p>Name: {promoter.name}</p>
-                    <p>Surname: {promoter.surname}</p>
-                    <p>Birth Date: {promoter.dateOfBirthFormatted}</p>
-                    <p>Email: {promoter.email}</p>
-                </Col>
-            </Row>
-        </Container>
-        )
-    );
+  return (
+    promoter && (
+    <Container >
+        <Row className='d-flex justify-content-center'>
+          <Col xs={12} md={1}>
+              {promoter.avatar && <Image className='rounded-circle mb-3' src={promoter.avatar} alt="Promoter Avatar" />}
+          </Col >
+          <Col xs={6} md={1}>
+              <p>Name:</p>
+              <p>Surname:</p>
+              <p>Birth Date: </p>
+              <p>Email:</p>
+          </Col>
+          <Col xs={6} md={4}>
+              <p>{promoter.name}</p>
+              <p>{promoter.surname}</p>
+              <p>{promoter.dateOfBirthFormatted}</p>
+              <p>{promoter.email}</p>
+          </Col>
+          <Col xs={1} md={1}>
+              <Button onClick={() => handleNavigate(`/promoters/${id}/update`)}><PencilSquare /></Button>
+          </Col>
+        </Row>
+    </Container>
+    )
+);
 }

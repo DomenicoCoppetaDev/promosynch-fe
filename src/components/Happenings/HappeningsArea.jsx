@@ -6,29 +6,7 @@ import HappeningsList from "./HappeningsList";
 import { Col } from "react-bootstrap";
 
 
-export default function HappeningsArea() {
-
-const { id } = useParams();
-const [happenings,  setHappenings] = useState([]);
-
-
-useEffect(() => {
-        fetch ( 'http://localhost:3031/events/promoter/'+ id, {
-            method: 'GET',
-            redirect: 'follow'
-           })
-        .then((r) => {
-            if (!r.ok) throw new Error('No Events Found');
-            return r.json();
-        })
-        .then((happenings) => {
-            setHappenings(happenings);
-        })
-        .catch((error) => {
-            toast.error(error.message);
-            console.error(error);
-          });
-        }, [id]);
+export default function HappeningsArea({happenings}) {
 
 
     return (

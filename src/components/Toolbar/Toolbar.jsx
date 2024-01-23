@@ -16,8 +16,17 @@ export default function ToolBar() {
     };
 
   return (
-    <Container fluid
-      className={cn(styles.toolbar, 'd-flex', 'bg-primary', 'fixed-bottom', 'align-items-center', 'text-white', 'justify-content-evenly')}
+      <Container fluid
+        className={cn(
+          styles.toolbar,
+          'd-sm-flex', 
+          'd-md-none',  
+          'bg-primary',
+          'fixed-bottom',
+          'align-items-center',
+          'text-white',
+          'justify-content-evenly'
+        )}
       >
       <Calendar3 onClick={() => handleNavigate(`/promoters/${promoterId}/dashboard`)} />
       <PlusCircle className={cn(styles.plus)} onClick={() => handleNavigate('/events/create')}/>

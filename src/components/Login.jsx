@@ -1,14 +1,14 @@
 import React from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Button, Container, Form, Row, Col, Card} from 'react-bootstrap';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import useTheme from '../hook/useTheme'
 
 
 export default function Login() {
 
+    const { theme } = useTheme()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -41,33 +41,46 @@ export default function Login() {
          }
 
         }
-    
+
+        const handleNavigate = (path) => {
+            navigate(path);
+        };
+
+
     return (
 
-        <Container>
-            <Form onSubmit={handleLogin}>
-                <Form.Group className="mb-3"  controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control 
-                        required
-                        type="email" 
-                        name='email' 
-                        value={email} 
-                        onChange={(e) => {setEmail(e.target.value)}} 
-                        placeholder="Enter email" />
-                    <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
-                    </Form.Group>
-                <Form.Group className="mb-3"  controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control required type="password" name='password' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder="Password" />
-                </Form.Group>
-                    <Button className='mx-2' type="submit">Login</Button>
-            </Form>
-                    <Link to={`/promoters/register`}>
-                        <Button className='mx-2'>Register</Button>
-                    </Link>
+        <Container className='d-flex align-items-center justify-content-center p-0' style={{ minHeight: '100vh', maxWidth: '100%' }}>
+            <Row >
+            <Col 
+            xs={12} sm={10} md={12} lg={12} xl={12} 
+            className='mx-auto'>
+            <Card className='p-4 mx-5'> 
+                    <Form onSubmit={handleLogin} className='mx-3'>
+                        <Form.Group className="mb-3"  controlId="formBasicEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control
+                                className='w-100'
+                                required
+                                type='email' 
+                                name='email' 
+                                value={email} 
+                                onChange={(e) => {setEmail(e.target.value)}} 
+                                placeholder="Enter email" />
+                            </Form.Group>
+                        <Form.Group className="mb-3"  controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control className='w-100' required type="password" name='password' value={password} onChange={(e) => {setPassword(e.target.value)}} placeholder="Password" />
+                        </Form.Group>
+                        <div className='d-grid gap-2 mx-0 px-0'>
+                            <Button className='mx-0 w-100' type="submit" >Login</Button>
+                            <Button className='mx-0 w-100' onClick={() => handleNavigate('')}>Loging With Google</Button>
+                            <hr />
+                            <Button className='mx-0 w-100' onClick={() => handleNavigate('/promoters/register')}>Register</Button>
+                        </div>
+                    </Form>
+            </Card>
+            </Col>
+            </Row>
         </Container>
     )
     }

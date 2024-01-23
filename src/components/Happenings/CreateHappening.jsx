@@ -2,40 +2,44 @@ import { Form, Button, Container, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import useJwt from '../../hook/useJwt.js';
 
-function getExtension(cover) {
 
-    if (!cover || !cover.name) {
-        return null;
-    }
-    const fileName = cover.name;
-    const dotIndex = fileName.lastIndexOf('.');
-    
-    if (dotIndex === -1) {
-        return null;
-    }
-    
-    const extension = fileName.substring(dotIndex + 1).toLowerCase();
-    return extension;
-}
+
 
 export default function CreateHappening() {
+    
+    
+    function getExtension(cover) {
+    
+        if (!cover || !cover.name) {
+            return null;
+        }
+        const fileName = cover.name;
+        const dotIndex = fileName.lastIndexOf('.');
+        
+        if (dotIndex === -1) {
+            return null;
+        }
+        
+        const extension = fileName.substring(dotIndex + 1).toLowerCase();
+        return extension;
+    }
 
+    const { promoterId, token } = useJwt();
 
     const [title, setTitle] = useState('');
-    const [dateStart, setDateStart] = useState('');
-    const [dateEnd, setDateEnd] = useState('');
+    const [start, setStart] = useState('');
+    const [end, setEnd] = useState('');
     const [cover, setCover] = useState(null);
     const [ticketPrice, setTicketPrice] = useState('');
     const [location, setLocation] = useState('');
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
-    const promoterId = localStorage.getItem('promoterId');
-    const token = localStorage.getItem('token');
     
     const createHappening = async (e) => {
         e.preventDefault();
-        console.log(cover);
+    
         const defaultCover = 'https://res.cloudinary.com/dvof2wzo4/image/upload/v1703785119/dkjvcoxmxr6trwlbdz6z.jpg';
         
         const allowedExtensions = ['jpeg', 'jpg', 'png'];
@@ -54,8 +58,8 @@ export default function CreateHappening() {
             const formData = new FormData();
             formData.append('promoter', promoter);
             formData.append('title', title);
-            formData.append('dateStart', dateStart);
-            formData.append('dateEnd', dateEnd);
+            formData.append('start', start);
+            formData.append('end', end);
             formData.append('cover', coverValue);
             formData.append('ticketPrice', ticketPrice);
             formData.append('location', location);
@@ -92,20 +96,20 @@ export default function CreateHappening() {
         <Form onSubmit={createHappening}>
             <Form.Group className="mb-3" controlId="formBasicTitle">
                 <Form.Label>Title</Form.Label>
-                <Form.Control type="string" name='title' value={title} onChange={(e) => {setTitle(e.target.value)}} placeholder="Enter Event Title" />
+                <Form.Control required type="string" name='title' value={title} onChange={(e) => {setTitle(e.target.value)}} placeholder="Enter Event Title" />
             </Form.Group>
             <Container fluid className='px-0'>
                 <Row>
                 <Col>
-                    <Form.Group className="mb-3"  controlId="formDateStart">
+                    <Form.Group className="mb-3"  controlId="formStart">
                         <Form.Label>Start</Form.Label>
-                            <Form.Control type="datetime-local" name='dateStart' value={dateStart} onChange={(e) => {setDateStart(e.target.value)}} />
+                            <Form.Control required type="datetime-local" name='start' value={start} onChange={(e) => {setStart(e.target.value)}} />
                     </Form.Group>
                 </Col>
                 <Col>
-                    <Form.Group className="mb-3"  controlId="formDateEnd">
+                    <Form.Group className="mb-3"  controlId="formEnd">
                         <Form.Label>End</Form.Label>
-                            <Form.Control type="datetime-local" name='dateEnd' value={dateEnd} onChange={(e) => {setDateEnd(e.target.value)}} />
+                            <Form.Control required type="datetime-local" name='end' value={end} onChange={(e) => {setEnd(e.target.value)}} />
                     </Form.Group>
                 </Col>
                 </Row>
@@ -121,21 +125,22 @@ export default function CreateHappening() {
                     </Form.Group>
                 </Col>
                 <Col>
-                    <Form.Group className="mb-3"  controlId="formDateEnd">
+                    <Form.Group className="mb-3"  controlId="formTicket">
                         <Form.Label>Ticket Price</Form.Label>
-                        <Form.Control type="string" name='ticketPrice' value={ticketPrice} onChange={(e) => {setTicketPrice(e.target.value)}} />
+                        <Form.Control required type="string" name='ticketPrice' value={ticketPrice} onChange={(e) => {setTicketPrice(e.target.value)}} />
                     </Form.Group>
                 </Col>
             </Container>
             <Form.Group className="mb-3" controlId="formLocation">
                 <Form.Label>Location</Form.Label>
-                <Form.Control type="string" name='location' value={location} onChange={(e) => {setLocation(e.target.value)}}  placeholder="Address" />
+                <Form.Control required type="string" name='location' value={location} onChange={(e) => {setLocation(e.target.value)}}  placeholder="Address" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formDescription">
                 <Form.Label>Description</Form.Label>
                 <Form.Control 
+                    required 
                     as="textarea" 
-                    style={{ height: '150px' }} 
+                    style={{ height: '100px' }} 
                     name='description' value={description} 
                     onChange={(e) => {setDescription(e.target.value)}}  
                     placeholder="Type here the details of your event" />

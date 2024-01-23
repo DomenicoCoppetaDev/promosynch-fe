@@ -1,25 +1,29 @@
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Row } from 'react-bootstrap';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng,} from 'react-places-autocomplete';
 
-function getExtension(avatar) {
-    if (!avatar || !avatar.name) {
-        return null;
-    }
-    const fileName = avatar.name;
-    const dotIndex = fileName.lastIndexOf('.');
-
-    if (dotIndex === -1) {
-        return null;
-    }
-
-    const extension = fileName.substring(dotIndex + 1).toLowerCase();
-    return extension;
-}
 
 export default function RegisterPromoter() {
+    
+
+    
+    
+    function getExtension(avatar) {
+        if (!avatar || !avatar.name) {
+            return null;
+        }
+        const fileName = avatar.name;
+        const dotIndex = fileName.lastIndexOf('.');
+    
+        if (dotIndex === -1) {
+            return null;
+        }
+    
+        const extension = fileName.substring(dotIndex + 1).toLowerCase();
+        return extension;
+    }
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [password, setPassword] = useState('');
@@ -73,7 +77,8 @@ export default function RegisterPromoter() {
 
 
     return ( 
-    <Container className='px-5'>
+    <Container>
+        <Row lg='3' className='justify-content-md-center'>
         <Form onSubmit={registerPromoter}>
             <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Name</Form.Label>
@@ -110,6 +115,7 @@ export default function RegisterPromoter() {
             </div>
             <Button variant="primary" type="submit">Submit</Button>
         </Form>
+        </Row>
     </Container>
     )
 } 

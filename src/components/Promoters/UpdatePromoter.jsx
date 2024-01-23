@@ -4,14 +4,39 @@ import { toast } from "react-toastify";
 import { useNavigate, useParams} from "react-router-dom";
 import { PencilSquare } from "react-bootstrap-icons";
 
+
 export default function ProfilePromoter(){
     const { id } = useParams();
+    const navigate = useNavigate();
+    const promoterId = localStorage.getItem('promoterId');
+    const token = localStorage.getItem('token');
+
+    const handleNavigate = (path) => {
+        navigate(path);
+    };
+
+    const [promoter, setPromoter] = useState({
+        name: '',
+        surname: '',
+        dateOfBirth: '',
+        avatar:'',
+      });
+
+    const [formData, setFormData] = useState({
+        name: '',
+        surname: '',
+        dateOfBirth: '',
+        avatar:'',
+      });
+    
 
     useEffect(() => {
 
-        fetch( 'http://localhost:3031/promoters/' + id , {
+        fetch(`http://localhost:3031/promoters/${promoterId}`, {
             method: 'GET',
-            redirect: 'follow'
+            headers: {
+                Authorization: `Bearer ${token}`
+              }
         })
         .then((r) => {
             if (!r.ok) throw new Error('Promoter Not Found');
@@ -50,25 +75,8 @@ export default function ProfilePromoter(){
         return extension;
     }
     
-    const [promoter, setPromoter] = useState({
-        name: '',
-        surname: '',
-        email: '',
-        dateOfBirth: '',
-        avatar:'',
-        password: '',
-      });
 
-    const [formData, setFormData] = useState({
-        name: '',
-        surname: '',
-        email: '',
-        dateOfBirth: '',
-        avatar:'',
-        password: '',
-      });
-    
-      const updatePromoter = async (e) => {
+    const updatePromoter = async (e) => {
         e.preventDefault();
         console.log(formData.avatar);
     
@@ -91,8 +99,9 @@ export default function ProfilePromoter(){
             const response = await fetch(`http://localhost:3031/promoters/${id}/update`, {
                 method: 'PUT',
                 headers: {
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
-                },
+                  },
                 body: JSON.stringify(updatedData),
             });
     
@@ -109,22 +118,23 @@ export default function ProfilePromoter(){
     return (
         promoter && (
         <Container>
-            <Row>
-                <Col xs={12} md={4}>
+            <Row className='d-flex justify-content-center'>
+                <Col xs={12} md={2}>
                     {promoter.avatar && <Image className='rounded-circle' src={promoter.avatar} alt="Promoter Avatar" />}
+                    <PencilSquare />
                 </Col>
-                <Col xs={12} md={8}>
+                <Col xs={12} md={4}>
                 <Form onSubmit={updatePromoter}>
                     <Form.Group className="mb-3" controlId="formBasicName">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>Enter New Name</Form.Label>
                         <Form.Control type="string" name='name' value={formData.name} onChange={handleInputChange} placeholder={promoter.name} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicSurname">
-                        <Form.Label>Surname</Form.Label>
+                        <Form.Label>Enter New Surname</Form.Label>
                         <Form.Control type="string" name='surname' value={formData.surname} onChange={handleInputChange}  placeholder={promoter.surname} />
                     </Form.Group>
                     <Form.Group className="mb-3"  controlId="formDateOfBirth">
-                        <Form.Label>Date Of Birth</Form.Label>
+                        <Form.Label>Set New Date Of Birth</Form.Label>
                         <Form.Control type="date" name='dateOfBirth' value={formData.dateOfBirth} onChange={handleInputChange} placeholder={promoter.dateOfBirth}/>
                     </Form.Group>
                     <Form.Group controlId="formFile" className="mb-3">
@@ -134,20 +144,11 @@ export default function ProfilePromoter(){
                             *File must be in JPEG or PNG format
                         </Form.Text>
                     </Form.Group>
-                    <Form.Group className="mb-3"  controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" name='email' value={formData.email} onChange={handleInputChange} placeholder={promoter.email} />
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                        </Form.Text>
-                    </Form.Group>
-                    <Form.Group className="mb-3"  controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name='password' value={formData.password} onChange={handleInputChange} placeholder={promoter.password} />
-                    </Form.Group>
-                    <Button variant="primary" type="submit">Submit</Button>
+                    <div className="d-flex justify-content-evenly">
+                        <Button variant="primary" type="submit">Submit</Button>
+                        <Button variant="danger" onClick={handleNavigate(`/promoters/${id}/dashboard`)}>Cancel</Button>
+                    </div>
                 </Form>
-                {/* <p>name : {promoter.name}</p> */}
                 </Col>
             </Row>
         </Container>

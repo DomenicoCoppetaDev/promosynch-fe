@@ -3,14 +3,15 @@ import { Button, Col, Container, Form, Row, Image } from "react-bootstrap";
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 
+
 export default function HappeningDetails() {
     const { id } = useParams();
-    console.log('questo è l id di useParams' + id);
+
     const [happening, setHappening] = useState();
     const navigate = useNavigate();
     const promoterId = localStorage.getItem('promoterId');
     const token = localStorage.getItem('token');
-    console.log('promoter token =  ' + token)
+ 
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -32,8 +33,8 @@ export default function HappeningDetails() {
             return r.json();
         })
         .then((data) => {
-            data.dateStartFormatted = formatDate(data.dateStart);
-            data.dateEndFormatted = formatDate(data.dateEnd);
+            data.startFormatted = formatDate(data.start);
+            data.endFormatted = formatDate(data.end);
             setHappening(data);
         })
         .catch((error) => {
@@ -63,27 +64,28 @@ export default function HappeningDetails() {
               });
     }
 
-        const [clientName, setClientName] = useState('');
-        const [clientSurname, setClientSurname] = useState('');
-        const [clientEmail, setClientEmail] = useState('');
-        const [clientDateOfBirth, setClientDateOfBirth] = useState('');
+    const [clientName, setClientName] = useState('');
+    const [clientSurname, setClientSurname] = useState('');
+    const [clientEmail, setClientEmail] = useState('');
+    const [clientDateOfBirth, setClientDateOfBirth] = useState('');
+
 
     const registerClient = async (e) => {
         e.preventDefault();
         try {
     
-            let response = await fetch('http://localhost:3031/clients/register',
+            let response = await fetch('http://localhost:3031/events/' + id,
                 {
-                    method: 'POST',
+                    method: 'PUT',
                     headers: {
                         'Content-type': 'application/json',
                     },
                     body: JSON.stringify({
+                        happeningId: id,
                         name: clientName,
                         surname: clientSurname,
-                        dateOfBirth: clientDateOfBirth,
                         email: clientEmail,
-                        happenings: [{happening: id, happeningPromoter: promoterId}],
+                        dateOfBirth: clientDateOfBirth,
                     })
                 }
                 );
@@ -111,8 +113,7 @@ export default function HappeningDetails() {
             <Container>
                 <Row>
                     <p>{happening.title}</p>
-                    <p>{happening.dateStartFormatted}</p>
-                    <p>{happening.dateEndFormatted}</p>
+                    <p>Start: {happening.startFormatted} End: {happening.endFormatted}</p>
                     <p>{happening.description}</p>
                 </Row>
                 <Row>
