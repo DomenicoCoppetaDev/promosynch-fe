@@ -13,7 +13,12 @@ export default function ProfilePromoter() {
   const [promoter, setPromoter] = useState();
   const navigate = useNavigate();
   const { promoterId, token } = useJwt();
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
   
+
+  //data format
   useEffect(() => {
       const formatDate = (dateString) => {
       const date = new Date(dateString);
@@ -44,34 +49,66 @@ export default function ProfilePromoter() {
       });
   }, [id]);
 
-  const handleNavigate = (path) => {
-    navigate(path);
-  };
+
+  //delete promoter profile
+  function deletedPromoter() {
+    const userConfirmed = window.confirm('Do you really want to delete your profile?');
+
+  if (!userConfirmed) {
+    return;
+  }
+
+    fetch(`http://localhost:3031/promoters/${promoterId}`,{
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then((r)=> {
+      if (r.ok) {
+        toast.info('Profile deleted successfully');
+        navigate(`/`)
+      } else {
+        toast.error('Something went wrong');
+      }
+    })
+    .catch((error) => {
+      toast.error(error.message);
+      console.error(error);
+    });
+  }
+
 
   return (
     promoter && (
-    <Container >
-        <Row className='d-flex justify-content-center'>
-          <Col xs={12} md={1}>
-              {promoter.avatar && <Image className='rounded-circle mb-3' src={promoter.avatar} alt="Promoter Avatar" />}
-          </Col >
-          <Col xs={6} md={1}>
-              <p>Name:</p>
-              <p>Surname:</p>
-              <p>Birth Date: </p>
-              <p>Email:</p>
+    <Container className='p-3' style={{ minHeight: '100vh',}}>
+        <Row className="m-5 justify-content-md-center">
+          <Col xs={12} md={6} className='px-0 me-5'>
+          <div className="d-flex justify-content-evenly">
+            <div className={cn(
+              styles.profilePicDiv,
+              'rounded-circle mb-3 me-3')}>
+              {promoter.avatar && <Image className={cn(styles.profilePic)}src={promoter.avatar} alt="Promoter Avatar" />}
+            </div>
+            </div>
+              <p>Name: {promoter.name}</p>
+              <p>Surname:  {promoter.surname}</p>
+              <p>Birth Date:  {promoter.dateOfBirthFormatted}</p>
+              <p>Email:  {promoter.email}</p>
           </Col>
-          <Col xs={6} md={4}>
-              <p>{promoter.name}</p>
-              <p>{promoter.surname}</p>
-              <p>{promoter.dateOfBirthFormatted}</p>
-              <p>{promoter.email}</p>
+        </Row>
+        <Row className="text-center my-2">
+          <Col>
+              <Button onClick={() => handleNavigate(`/promoters/${id}/update`)}>Edit Profile <PencilSquare /></Button>
           </Col>
-          <Col xs={1} md={1}>
-              <Button onClick={() => handleNavigate(`/promoters/${id}/update`)}><PencilSquare /></Button>
+        </Row>
+        <Row className="text-center">
+          <Col>
+              <Button variant="danger" onClick={deletedPromoter}>Delete Profile</Button>    
           </Col>
         </Row>
     </Container>
     )
-);
-}
+    );
+  }
+  

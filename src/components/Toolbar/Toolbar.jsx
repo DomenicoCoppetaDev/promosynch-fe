@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function ToolBar() {
+
+
+
   const promoterId = localStorage.getItem('promoterId');
   const token = localStorage.getItem('token');
 
@@ -15,17 +18,23 @@ export default function ToolBar() {
         navigate(path);
     };
 
+    if (!token) {
+      return null ;
+    }
+
+
   return (
       <Container fluid
         className={cn(
           styles.toolbar,
-          'd-sm-flex', 
-          'd-md-none',  
+          'd-flex',
+          'd-lg-none',  
           'bg-primary',
           'fixed-bottom',
           'align-items-center',
           'text-white',
-          'justify-content-evenly'
+          'justify-content-evenly',
+          'mt-5'
         )}
       >
       <Calendar3 onClick={() => handleNavigate(`/promoters/${promoterId}/dashboard`)} />

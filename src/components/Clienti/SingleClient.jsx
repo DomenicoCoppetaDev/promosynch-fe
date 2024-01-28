@@ -1,6 +1,7 @@
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import useTheme from '../../hook/useTheme';
+import { CheckCircleFill } from 'react-bootstrap-icons';
 
 
 
@@ -10,8 +11,8 @@ export default function SingleClient({client}){
 
     return (
       <Link to={`/clients/${client._id}`}>
-      <ListGroup.Item className='d-grid bg-transparent justify-content-between align-items-center text-start'>
-          <p>{client.name} {client.surname} {client.email}</p>
+      <ListGroup.Item className='d-flex bg-transparent justify-content-evenly align-items-center'>
+          <span>{client.name}</span><span>{client.surname}</span><span>{client.email}</span><Button><CheckCircleFill /></Button>
       </ListGroup.Item>
       </Link>
     )

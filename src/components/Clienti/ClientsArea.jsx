@@ -4,53 +4,29 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import ClientsList from "./ClientsList.jsx";
 import { Col, Row } from "react-bootstrap";
+import useJwt from "../../hook/useJwt.js";
+
 
 
 export default function ClientsArea() {
 
 const { id } = useParams();
 const [clients,  setClients] = useState([]);
-
-const promoterId = localStorage.getItem('promoterId');
-const token = localStorage.getItem('token');
+const { promoterId, token } = useJwt();
 
 const [ happenings, setHappenings ] = useState([]);
 const [selectedEvent, setSelectedEvent] = useState('all');
 
 const navigate = useNavigate();
 
-// verify toke e promoterId
-useEffect(() => {
-    if (!promoterId || !token) {
-        navigate('/');
-    }
-}, []);
-
-// fetch events
-useEffect(() => {
-
-    fetch ( 'http://localhost:3031/events/promoter/'+ promoterId, {
-      method: 'GET',
-      redirect: 'follow'
-     })
-    .then((r) => {
-      if (!r.ok) throw new Error('No Events Found');
-      return r.json();
-    })
-    .then((happenings) => {
-    setHappenings(happenings);
-    })
-    .catch((error) => {
-    toast.error(error.message);
-    console.error(error);
-    });
-  }, [promoterId]);
 
 // fetch clients
 useEffect(() => {
     fetch ( 'http://localhost:3031/events/clients/'+ promoterId, {
         method: 'GET',
-        redirect: 'follow'
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
        })
     .then((r) => {
         if (!r.ok) throw new Error('No Clients Found');

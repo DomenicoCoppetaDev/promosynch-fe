@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-// import jwt from 'jsonwebtoken';
+import { jwtDecode } from "jwt-decode";
 
 export default function useJwt() {
     
@@ -21,23 +21,22 @@ export default function useJwt() {
         token: localStorage.getItem('token'),
     }
 
-    // const isTokenValid = () => {
-    //     try {
-    //         const decodedToken = jwt.decode(promoterData.token);
-    //         return decodedToken && decodedToken.exp > Date.now() / 1000;
-    //     } catch (error) {
-    //         return false;
-    //     }
-    // };
+    const isTokenValid = () => {
+        try {
+            let decodedToken = jwtDecode(promoterData.token)
+            return decodedToken && decodedToken.exp > Date.now() / 1000;
+        } catch (error) {
+            return false;
+        }
+    };
 
     useEffect(() => {
 
-        if (!promoterData.promoterId || !promoterData.token ) {
+
+        if (!promoterData.promoterId || !promoterData.token || !isTokenValid()) {
+            localStorage.clear();
             navigate('/')
         }
-        // if (!promoterData.promoterId || !promoterData.token || !isTokenValid()) {
-        //     navigate('/')
-        // }
 
 
         if (window.location.search) {

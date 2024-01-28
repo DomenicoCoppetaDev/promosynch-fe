@@ -71,8 +71,10 @@ export default function CreateHappening() {
                 {
                     method: 'POST',
                     body: formData,
-                }
-            );
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
     
             if (response.ok) {
                 toast.success('Event Successfully Created');

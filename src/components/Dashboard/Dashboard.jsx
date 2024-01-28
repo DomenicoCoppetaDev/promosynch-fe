@@ -9,18 +9,18 @@ import MyCalendar from "../Calendar/Calendar.jsx";
 import useJwt from "../../hook/useJwt.js";
 
 export default function Dashboard({theme}) {
-  
- 
+
   const navigate = useNavigate();
   const [happeningsDash,  setHappeningsDash] = useState([]);
 
   const { promoterId, token } = useJwt();
-  
 
   useEffect(() => {
     fetch ( 'http://localhost:3031/events/promoter/'+ promoterId, {
         method: 'GET',
-        redirect: 'follow'
+        headers: {
+          Authorization: `Bearer ${token}`
+      }
        })
     .then((r) => {
         if (!r.ok) throw new Error('No Events Found');
@@ -36,7 +36,7 @@ export default function Dashboard({theme}) {
     }, [promoterId]);
 
     return (
-        <Container>
+        <Container className="mt-3" style={{ minHeight: '100vh',}}>
           <Row >
                 <MyCalendar events={happeningsDash}/>
           </Row>
