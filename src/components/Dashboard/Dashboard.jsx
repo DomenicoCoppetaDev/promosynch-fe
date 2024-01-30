@@ -36,7 +36,7 @@ export default function Dashboard({theme}) {
     }, [promoterId]);
 
     return (
-        <Container className="mt-3" style={{ minHeight: '100vh',}}>
+        <Container className="mt-3" style={{ minHeight: '70vh',}}>
           <Row >
                 <MyCalendar events={happeningsDash}/>
           </Row>

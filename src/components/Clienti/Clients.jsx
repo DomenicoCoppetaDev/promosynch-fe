@@ -3,12 +3,13 @@ import ClientsArea from './ClientsArea.jsx';
 import useJwt from "../../hook/useJwt.js";
 
 
+
 export default function Clients() {
   
   const { promoterId, token} = useJwt();
 
     return (
-        <Container>
+        <Container style={{ minHeight: '100vh'}}>
             <Row>
                 <ClientsArea />
             </Row>

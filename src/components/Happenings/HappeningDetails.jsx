@@ -13,6 +13,18 @@ export default function HappeningDetails() {
     const navigate = useNavigate();
     const promoterId = localStorage.getItem('promoterId');
     const token = localStorage.getItem('token');
+    
+    const [isLogged, setIsLogged] = useState(false);
+
+    useEffect(() => {
+        if (promoterId && token) {
+            setIsLogged(true);
+        } else {
+            setIsLogged(false);
+        }
+    }, [promoterId, token]);
+
+
 
 
     const formatDate = (dateString) => {
@@ -50,6 +62,12 @@ export default function HappeningDetails() {
 
     //cancella evento
     function deleteHappening() {
+        const userConfirmed = window.confirm('Do you really want to delete your event?');
+
+        if (!userConfirmed) {
+          return;
+        }
+      
         fetch('http://localhost:3031/events/' + id, {
             method: 'DELETE',
             headers: {
@@ -116,7 +134,7 @@ export default function HappeningDetails() {
     return (
         happening && (
             <>
-                <Container>
+                <Container className='mb-5'>
                     <Row>
                         <Col>
                             <div className={cn(styles.coverDiv)}>
@@ -160,14 +178,16 @@ export default function HappeningDetails() {
                         </Col>
                     </Row>
                     <Row className='d-flex justify-content-evenly px-2 my-3 text-center'>
-                        <Col xs={10} md={6}>
-                            <h5>Promoter Area</h5>
-                            <div className="d-flex justify-content-evenly">
-                                <Button className='' onClick={() => handleNavigate(`/events/${id}/update`)}>Update Event</Button>
-                                <Button className='' variant="info" >Client List</Button>
-                                <Button className='' variant="danger" onClick={deleteHappening}>Delete Event </Button>
-                            </div>
-                        </Col>
+                        {isLogged && (
+                            <Col>
+                                <h5>Promoter Area</h5>
+                                <div className="d-flex justify-content-evenly">
+                                    <Button className='' onClick={() => handleNavigate(`/events/${id}/update`)}>Update Event</Button>
+                                    <Button className='' variant="info" >Client List</Button>
+                                    <Button className='' variant="danger" onClick={deleteHappening}>Delete Event </Button>
+                                </div>
+                            </Col>
+                        )}
                     </Row>
                 </Container>
             </>

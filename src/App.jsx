@@ -16,6 +16,7 @@ import CreateHappening from './components/Happenings/CreateHappening.jsx';
 import { useState, useEffect} from 'react';
 import Clients from './components/Clienti/Clients.jsx';
 import ThemeContext from './context/theme.js';
+import MyFooter from './components/MyFooter.jsx';
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
         <Route path='/events/:id' element={<HappeningDetails />} />
         <Route path='/terms' element={<Terms />} />
       </Routes>
+      <MyFooter />
     </div>
       <ToolBar />
       <ToastContainer position="bottom-center" />
