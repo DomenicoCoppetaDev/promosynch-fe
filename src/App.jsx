@@ -22,18 +22,15 @@ import MyFooter from './components/MyFooter.jsx';
 function App() {
 
 
-
-  const currentTheme = localStorage.getItem('theme')
-
-  if (currentTheme === null) {
-    localStorage.setItem('theme', 'light')
-  }
-
-  const [theme, setTheme] = useState(currentTheme)
-
+  const [theme, setTheme] = useState(localStorage.getItem('theme'));
 
   useEffect(() => {
-    localStorage.setItem('theme', theme);
+    if (theme === null) {
+        localStorage.setItem('theme','light')
+        setTheme('light')
+    } else {
+        localStorage.setItem('theme',theme)
+    }
   }, [theme]);
  
 
