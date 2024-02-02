@@ -29,7 +29,7 @@ export default function ProfilePromoter() {
       return `${day}-${month}-${year}`;
     }
     
-    fetch(`http://localhost:3031/promoters/${promoterId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/${promoterId}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`
@@ -58,7 +58,7 @@ export default function ProfilePromoter() {
     return;
   }
 
-    fetch(`http://localhost:3031/promoters/${promoterId}`,{
+    fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/${promoterId}`,{
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`

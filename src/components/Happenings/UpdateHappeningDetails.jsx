@@ -45,7 +45,7 @@ export default function UpdateHappening() {
     });
 
     useEffect(() => {
-        fetch('http://localhost:3031/events/' + id, {
+        fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/events/` + id, {
             method: 'GET',
         })
             .then((r) => {
@@ -89,7 +89,7 @@ export default function UpdateHappening() {
           const formDataObj = new FormData();
           formDataObj.append('cover', formData.cover);
       
-          const response = await fetch(`http://localhost:3031/events/${id}/ucover`, {
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/events/${id}/ucover`, {
             method: 'PATCH',
             headers: {
               Authorization: `Bearer ${token}`,
@@ -98,7 +98,7 @@ export default function UpdateHappening() {
           });
       
           if (response.ok) {
-            const updatedHappeningResponse = await fetch(`http://localhost:3031/events/${id}`, {
+            const updatedHappeningResponse = await fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/events/${id}`, {
               method: 'GET',
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -143,7 +143,7 @@ export default function UpdateHappening() {
         }
     
         try {
-            const response = await fetch(`http://localhost:3031/events/${id}/update`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}v/events/${id}/update`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -16,7 +16,7 @@ export default function Dashboard({theme}) {
   const { promoterId, token } = useJwt();
 
   useEffect(() => {
-    fetch ( 'http://localhost:3031/events/promoter/'+ promoterId, {
+    fetch ( `${process.env.REACT_APP_BACKEND_ENDPOINT}/events/promoter/`+ promoterId, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`

@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import ClientsList from './ClientsList.jsx';
-import { Col, Row, Container } from 'react-bootstrap';
+import { Col, Row, Container, Button } from 'react-bootstrap';
 import useJwt from '../../hook/useJwt.js';
-import ClientsGrid from './ClientsGrid.jsx';
+import ClientsList from './ClientsList.jsx';
+import Papa from 'papaparse';
 
 export default function ClientsArea() {
-  const { id } = useParams();
   const [clients, setClients] = useState([]);
   const { promoterId, token } = useJwt();
-
   const [happenings, setHappenings] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState('all');
-
   const navigate = useNavigate();
 
   // Fetch events
   useEffect(() => {
-    fetch('http://localhost:3031/events/promoter/' + promoterId, {
+    fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/events/promoter/${promoterId}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -39,7 +36,7 @@ export default function ClientsArea() {
 
   // Fetch clients
   useEffect(() => {
-    fetch('http://localhost:3031/events/clients/' + promoterId, {
+    fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/events/clients/${promoterId}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -70,18 +67,43 @@ export default function ClientsArea() {
     setSelectedEvent(event);
   };
 
+  const handleDownloadCSV = () => {
+    const csvData = clientsToShow.map((client) => ({
+      'Name': client.name,
+      'Surname': client.surname,
+      'Email': client.email,
+      'DateOfBirth': client.dateOfBirth,
+      'CheckedIn': client.checkedIn,
+      'id': client._id,
+    }));
+
+    const csv = Papa.unparse(csvData);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'clients.csv');
+    link.style.visibility = 'hidden';
+
+    document.body.appendChild(link);
+    link.click();
+
+    URL.revokeObjectURL(url);
+    document.body.removeChild(link);
+  };
+
   return (
     <Container className='my-5 text-center'>
       <Row>
         <h4>Your Clients</h4>
       </Row>
       <Row>
+        <Col>
         <div>
           <h6>Select Event: </h6>
           <select id="dropdown" variant="primary" onChange={(e) => handleEventSelect(e.target.value)}>
-            <option className="dropdown-item" value="all">
-            All
-            </option>
+            <option className="dropdown-item" value="all">All</option>
             {happenings.map((happening) => (
               <option className="dropdown-item" value={happening._id} key={happening._id}>
                 {happening.title}
@@ -89,11 +111,17 @@ export default function ClientsArea() {
             ))}
           </select>
         </div>
+        </Col>
+        <Col className="text-center py-3 px-3">
+          <Button onClick={handleDownloadCSV}>Download CSV</Button>
+        </Col>
       </Row>
       <Row>
         <Col className="text-center py-3 px-3">
           <ClientsList clientsToShow={clientsToShow} />
         </Col>
+      </Row>
+      <Row>
       </Row>
     </Container>
   );

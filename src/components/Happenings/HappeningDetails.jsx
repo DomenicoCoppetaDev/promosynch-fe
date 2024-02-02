@@ -42,7 +42,7 @@ export default function HappeningDetails() {
 
     //fetch evento
     useEffect(() => {
-        fetch('http://localhost:3031/events/' + id, {
+        fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/events/` + id, {
             method: 'GET',
         })
             .then((r) => {
@@ -68,7 +68,7 @@ export default function HappeningDetails() {
           return;
         }
       
-        fetch('http://localhost:3031/events/' + id, {
+        fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/events/` + id, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`
@@ -98,7 +98,7 @@ export default function HappeningDetails() {
         e.preventDefault();
         try {
 
-            let response = await fetch('http://localhost:3031/events/' + id,
+            let response = await fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/events/` + id,
                 {
                     method: 'PUT',
                     headers: {

@@ -54,7 +54,7 @@ export default function RegisterPromoter() {
             formData.append('avatar', avatarValue);
 
             let response = await fetch(
-                'http://localhost:3031/promoters/register',
+                `${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/register`,
                 {
                     method: 'POST',
                     body: formData,
@@ -62,7 +62,7 @@ export default function RegisterPromoter() {
             )
             if (response.ok) {
                 const loginResponse = await fetch(
-                    'http://localhost:3031/promoters/session',
+                    `${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/session`,
                     {
                         method: 'POST',
                         headers: {

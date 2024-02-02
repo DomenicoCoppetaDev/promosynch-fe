@@ -67,7 +67,7 @@ export default function CreateHappening() {
 
     
             let response = await fetch(
-                'http://localhost:3031/events/create',
+                `${process.env.REACT_APP_BACKEND_ENDPOINT}/events/create`,
                 {
                     method: 'POST',
                     body: formData,

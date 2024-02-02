@@ -30,7 +30,7 @@ export default function UpdatePromoter() {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:3031/promoters/${promoterId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}promoters/${promoterId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -68,6 +68,7 @@ export default function UpdatePromoter() {
     });
   };
 
+  
   const updateAvatar = async (e) => {
     e.preventDefault();
   
@@ -75,7 +76,7 @@ export default function UpdatePromoter() {
       const formDataObj = new FormData();
       formDataObj.append('avatar', formData.avatar);
   
-      const response = await fetch(`http://localhost:3031/promoters/${id}/profpic`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/${id}/profpic`, {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -84,7 +85,7 @@ export default function UpdatePromoter() {
       });
   
       if (response.ok) {
-        const updatedPromoterResponse = await fetch(`http://localhost:3031/promoters/${promoterId}`, {
+        const updatedPromoterResponse = await fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/${promoterId}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -132,7 +133,7 @@ export default function UpdatePromoter() {
     }
   
     try {
-      const response = await fetch(`http://localhost:3031/promoters/${id}/update`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/${id}/update`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,

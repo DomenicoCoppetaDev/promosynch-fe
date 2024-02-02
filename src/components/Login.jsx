@@ -3,7 +3,8 @@ import { Button, Container, Form, Row, Col, Card} from 'react-bootstrap';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import useTheme from '../hook/useTheme'
+import useTheme from '../hook/useTheme';
+import { GoogleLoginButton } from "react-social-login-buttons"
 
 
 export default function Login() {
@@ -16,8 +17,9 @@ export default function Login() {
     const handleLogin = async (e) => {
         e.preventDefault()
 
+        
         const response = await fetch(
-            'http://localhost:3031/promoters/session',{
+            `${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/session`,{
                method: "POST",
                headers: {
                   "Content-Type": "application/json",
@@ -52,8 +54,7 @@ export default function Login() {
         <Container className='d-flex align-items-center justify-content-center p-0' style={{ minHeight: '100vh', maxWidth: '100%' }}>
             <Row >
             <Col 
-            xs={12} sm={10} md={12} lg={12} xl={12} 
-            className='mx-auto'>
+            xs={12} sm={10} md={12} lg={12} xl={12} >
             <Card className='p-4 mx-5'> 
                     <Form onSubmit={handleLogin} className='mx-3'>
                         <Form.Group className="mb-3"  controlId="formBasicEmail">
@@ -73,7 +74,13 @@ export default function Login() {
                         </Form.Group>
                         <div className='d-grid gap-2 mx-0 px-0'>
                             <Button className='mx-0 w-100' type="submit" >Login</Button>
-                            <Button className='mx-0 w-100' onClick={() => handleNavigate('')}>Loging With Google</Button>
+                            <GoogleLoginButton
+                                    onClick={() => {
+                                    window.location.assign(
+                                        `${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/oauth-google`
+                                    )
+                                    }}
+                                />
                             <hr />
                             <Button className='mx-0 w-100' onClick={() => handleNavigate('/promoters/register')}>Register</Button>
                         </div>
