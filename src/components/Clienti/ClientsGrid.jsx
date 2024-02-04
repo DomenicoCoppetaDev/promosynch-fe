@@ -1,24 +1,29 @@
-import { useState } from 'react';
-import { AgGridReact } from 'ag-grid-react'; // React Grid Logic
-import "ag-grid-community/styles/ag-grid.css"; // Core CSS
-import "ag-grid-community/styles/ag-theme-quartz.css"; // Theme
+import React from 'react';
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 
+export default function AgGridExample({data}){
+  // Dati di esempio
+  const rowData = data
 
-export default function ClientsGrid({clientsToShow}){
-    // Row Data: The data to be displayed.
-    const [rowData, setRowData] = useState(clientsToShow);
-    
-    // Column Definitions: Defines & controls grid columns.
-    const [colDefs, setColDefs] = useState([
-      { field: "name" },
-      { field: "surname" },
-      { field: "email" },
-      { field: "checked-in" }
-    ]);
+  // Definizione delle colonne della griglia
+  const columnDefs = [
+    { headerName: 'Name', field: 'name', flex:2 },
+    { headerName: 'Surname', field: 'surname', flex:2 },
+    { headerName: 'Email', field: 'email', flex:6 },
+    { headerName: 'Checked-In', field: 'checkedIn', cellDataType:'boolean', flex:1}
+  ];
 
-    return (
-        <div>
-            <AgGridReact  rowData={rowData} columnDefs={colDefs} />
-        </div>
-    )
-  }
+  return (
+    <div className="ag-theme-alpine" style={{ width: '100%', height: '100%' }} >
+      <AgGridReact
+        columnDefs={columnDefs}
+        rowData={rowData}
+        domLayout='autoHeight'
+      />
+    </div>
+  );
+};
+
+;

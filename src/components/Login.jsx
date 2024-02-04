@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Container, Form, Row, Col, Card} from 'react-bootstrap';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useTheme from '../hook/useTheme';
 import { GoogleLoginButton } from "react-social-login-buttons"
+import useJwt from '../hook/useJwt';
 
 
 export default function Login() {
+
 
     const { theme } = useTheme()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const searchParams = new URLSearchParams(window.location.search)
+    
+    useEffect(() => {        
+        const promoterId = localStorage.getItem('promoterId') || searchParams.get('promoterId')
+        const token = localStorage.getItem('token') ||  searchParams.get('token')
+
+
+        if (!promoterId) {
+            localStorage.clear()
+        } else {
+        localStorage.setItem('promoterId', promoterId)
+        localStorage.setItem('token',token)
+        }
+
+        if (window.location.search) {
+            navigate(`/promoters/${promoterId}/dashboard`)
+        }
+
+    },[searchParams])
+
 
     const handleLogin = async (e) => {
         e.preventDefault()
@@ -44,10 +66,11 @@ export default function Login() {
 
         }
 
-        const handleNavigate = (path) => {
-            navigate(path);
-        };
+    const handleNavigate = (path) => {
+        navigate(path);
+    };
 
+    
 
     return (
 
@@ -75,6 +98,7 @@ export default function Login() {
                         <div className='d-grid gap-2 mx-0 px-0'>
                             <Button className='mx-0 w-100' type="submit" >Login</Button>
                             <GoogleLoginButton
+
                                     onClick={() => {
                                     window.location.assign(
                                         `${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/oauth-google`

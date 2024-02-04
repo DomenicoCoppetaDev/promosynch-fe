@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Col, Row, Container, Button } from 'react-bootstrap';
 import useJwt from '../../hook/useJwt.js';
-import ClientsList from './ClientsList.jsx';
 import Papa from 'papaparse';
+import AgGridExample from './ClientsGrid.jsx';
+
 
 export default function ClientsArea() {
   const [clients, setClients] = useState([]);
@@ -118,10 +119,8 @@ export default function ClientsArea() {
       </Row>
       <Row>
         <Col className="text-center py-3 px-3">
-          <ClientsList clientsToShow={clientsToShow} />
+          <AgGridExample data={clientsToShow}/>
         </Col>
-      </Row>
-      <Row>
       </Row>
     </Container>
   );

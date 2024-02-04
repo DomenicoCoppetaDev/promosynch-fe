@@ -8,30 +8,22 @@ export default function useJwt() {
 
     const searchParams = new URLSearchParams(window.location.search)
 
-    if (searchParams.get('promoterId')){
-        localStorage.setItem('promoterId', searchParams.get('promoterId'))
-    }
-
-    if (searchParams.get('token')){
-        localStorage.setItem('token', searchParams.get('token'))
-    }
-
     const promoterData = {
-        promoterId: localStorage.getItem('promoterId'),
-        token: localStorage.getItem('token'),
+        promoterId: localStorage.getItem('promoterId') || searchParams.get('promoterId'),
+        token: localStorage.getItem('token') ||  searchParams.get('token')
     }
 
-    const isTokenValid = () => {
-        try {
-            let decodedToken = jwtDecode(promoterData.token)
-            return decodedToken && decodedToken.exp > Date.now() / 1000;
-        } catch (error) {
-            return false;
-        }
-    };
-
+    
     useEffect(() => {
-
+        
+        const isTokenValid = () => {
+            try {
+                let decodedToken = jwtDecode(promoterData.token)
+                return decodedToken && decodedToken.exp > Date.now() / 1000;
+            } catch (error) {
+                return false;
+            }
+        };
 
         if (!promoterData.promoterId || !promoterData.token || !isTokenValid()) {
             localStorage.clear();
@@ -42,7 +34,7 @@ export default function useJwt() {
         if (window.location.search) {
             navigate(window.location.pathname)
         }
-    }, [promoterData.promoterId, promoterData.token, navigate])
+    }, [promoterData, navigate])
 
     return promoterData
 }

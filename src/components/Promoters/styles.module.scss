@@ -1,11 +1,11 @@
 .profilePicDiv {
     height: 150px;
     width: 150px;
-    background-color: black;
+    background-color: transparent;
     overflow: hidden;
 }
 .profilePic {
-    width: 100%; // L'immagine occupa il 100% della larghezza del div
+    width: 100%;
     height: auto; // L'altezza si adatta proporzionalmente per mantenere l'aspetto originale
     display: block; // Rimuove lo spazio extra sotto l'immagine quando si utilizza 'display: inline-block'
   }

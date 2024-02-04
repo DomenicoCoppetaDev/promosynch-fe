@@ -50,7 +50,6 @@ export default function RegisterPromoter() {
             formData.append('surname', surname);
             formData.append('email', email);
             formData.append('password', password);
-            formData.append('dateOfBirth', dateOfBirth);
             formData.append('avatar', avatarValue);
 
             let response = await fetch(
@@ -108,10 +107,6 @@ export default function RegisterPromoter() {
                     <Form.Group className="mb-3" controlId="formBasicSurname">
                         <Form.Label>Surname</Form.Label>
                         <Form.Control required type="text" name='surname' value={surname} onChange={(e) => { setSurname(e.target.value) }} placeholder="Enter Surname" />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formDateOfBirth">
-                        <Form.Label>Date Of Birth</Form.Label>
-                        <Form.Control required type="date" name='dateOfBirth' value={dateOfBirth} onChange={(e) => { setDateOfBirth(e.target.value) }} />
                     </Form.Group>
                     <Form.Group controlId="formFile" className="mb-3">
                         <Form.Label>Profile Picture</Form.Label>

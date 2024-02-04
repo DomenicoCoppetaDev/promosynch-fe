@@ -20,14 +20,6 @@ export default function ProfilePromoter() {
 
   //data format
   useEffect(() => {
-      const formatDate = (dateString) => {
-      const date = new Date(dateString);
-      const day = date.getDate().toString().padStart(2, '0');
-      const month = (date.getMonth() + 1).toString().padStart(2, '0');
-      const year = date.getFullYear();
-  
-      return `${day}-${month}-${year}`;
-    }
     
     fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/${promoterId}`, {
       method: 'GET',
@@ -40,7 +32,6 @@ export default function ProfilePromoter() {
         return r.json();
       })
       .then((promoter) => {
-        promoter.dateOfBirthFormatted = formatDate(promoter.dateOfBirth);
         setPromoter(promoter);
       })
       .catch((error) => {
@@ -67,6 +58,8 @@ export default function ProfilePromoter() {
     .then((r)=> {
       if (r.ok) {
         toast.info('Profile deleted successfully');
+        localStorage.clear();
+        localStorage.setItem('theme','light')
         navigate(`/`)
       } else {
         toast.error('Something went wrong');
@@ -93,7 +86,6 @@ export default function ProfilePromoter() {
             </div>
               <p>Name: {promoter.name}</p>
               <p>Surname:  {promoter.surname}</p>
-              <p>Birth Date:  {promoter.dateOfBirthFormatted}</p>
               <p>Email:  {promoter.email}</p>
           </Col>
         </Row>

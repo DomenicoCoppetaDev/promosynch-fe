@@ -58,7 +58,7 @@ function App() {
         <Route path='/events/:id' element={<HappeningDetails />} />
         <Route path='/terms' element={<Terms />} />
       </Routes>
-      <MyFooter />
+      {/* <MyFooter /> */}
     </div>
       <ToolBar />
       <ToastContainer position="bottom-center" />

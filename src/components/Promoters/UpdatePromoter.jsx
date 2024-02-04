@@ -30,25 +30,26 @@ export default function UpdatePromoter() {
   });
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}promoters/${promoterId}`, {
-      method: "GET",
+    
+    fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/${promoterId}`, {
+      method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}`
+      }
     })
       .then((r) => {
-        if (!r.ok) throw new Error("Promoter Not Found");
+        if (!r.ok) throw new Error('Promoter Not Found');
         return r.json();
       })
-      .then((data) => {
-        setPromoter(data);
-        setFormData(data);
+      .then((promoter) => {
+        setPromoter(promoter);
       })
       .catch((error) => {
         toast.error(error.message);
         console.error(error);
       });
-  }, [promoterId]);
+  }, [id]);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -156,7 +157,7 @@ export default function UpdatePromoter() {
 
   return (
     promoter && (
-      <Container className='p-3' style={{ minHeight: '100vh' }}>
+      <Container className='p-3'>
         <Row className="d-flex justify-content-center">
           <Col xs={12} md={6}>
             <div className={cn(
@@ -201,16 +202,6 @@ export default function UpdatePromoter() {
                   value={formData.surname}
                   onChange={handleInputChange}
                   placeholder={promoter.surname}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formDateOfBirth">
-                <Form.Label>Set New Date Of Birth</Form.Label>
-                <Form.Control
-                  type="date"
-                  name="dateOfBirth"
-                  value={formData.dateOfBirth}
-                  onChange={handleInputChange}
-                  placeholder={promoter.dateOfBirth}
                 />
               </Form.Group>
               <div className="d-flex justify-content-evenly">

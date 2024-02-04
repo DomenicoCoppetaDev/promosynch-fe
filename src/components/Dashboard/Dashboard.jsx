@@ -3,14 +3,13 @@ import { Container, Row, Spinner} from "react-bootstrap";
 import { toast } from "react-toastify";
 import styles from './styles.module.scss';
 import cn from 'classnames';
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import HappeningsArea from '../Happenings/HappeningsArea.jsx';
 import MyCalendar from "../Calendar/Calendar.jsx";
 import useJwt from "../../hook/useJwt.js";
 
-export default function Dashboard({theme}) {
+export default function Dashboard() {
 
-  const navigate = useNavigate();
   const [happeningsDash,  setHappeningsDash] = useState([]);
 
   const { promoterId, token } = useJwt();
@@ -36,7 +35,7 @@ export default function Dashboard({theme}) {
     }, [promoterId]);
 
     return (
-        <Container className="mt-3" style={{ minHeight: '70vh',}}>
+        <Container className="mt-3">
           <Row >
                 <MyCalendar events={happeningsDash}/>
           </Row>

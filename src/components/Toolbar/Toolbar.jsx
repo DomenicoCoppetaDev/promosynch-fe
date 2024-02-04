@@ -17,16 +17,18 @@ export default function ToolBar() {
   const handleNavigate = (path) => {
         navigate(path);
     };
+  
 
-    if (!token) {
+  if (!token) {
       return null ;
-    }
+  }
 
 
   return (
       <Container fluid
         className={cn(
           styles.toolbar,
+          'position-absolute',
           'd-flex',
           'd-lg-none',  
           'bg-primary',
@@ -34,12 +36,20 @@ export default function ToolBar() {
           'align-items-center',
           'text-white',
           'justify-content-evenly',
-          'mt-5'
         )}
       >
-      <Calendar3 onClick={() => handleNavigate(`/promoters/${promoterId}/dashboard`)} />
-      <PlusCircle className={cn(styles.plus)} onClick={() => handleNavigate('/events/create')}/>
-      <PeopleFill onClick={() => handleNavigate('/clients')} />
+      <div className='d-flex flex-column text-center align-items-center'>
+        <Calendar3 onClick={() => handleNavigate(`/promoters/${promoterId}/dashboard`)} />
+        <span>Dashboard</span>
+      </div>
+      <div className='d-flex flex-column text-center align-items-center'>
+        <PlusCircle className={cn(styles.plus)} onClick={() => handleNavigate('/events/create')}/>
+        <span>Add Event</span>
+      </div>
+      <div className='d-flex flex-column text-center align-items-center'>
+        <PeopleFill onClick={() => handleNavigate('/clients')} />
+        <span>Clients</span>
+      </div>
     </Container>
   )
 }
