@@ -1,11 +1,14 @@
 .coverDiv {
-    height: 300px;
+    display: flex;
+    justify-content: center;
+    height: 250px;
     width: 100%;
     overflow: hidden;
+    text-align: center;
 }
 .cover{
-    width: 100%; // L'immagine occupa il 100% della larghezza del div
-    height: auto; // L'altezza si adatta proporzionalmente per mantenere l'aspetto originale
+    width: auto; // L'immagine occupa il 100% della larghezza del div
+    height: 100%; // L'altezza si adatta proporzionalmente per mantenere l'aspetto originale
     display: block; // Rimuove lo spazio extra sotto l'immagine quando si utilizza 'display: inline-block'
   }
 

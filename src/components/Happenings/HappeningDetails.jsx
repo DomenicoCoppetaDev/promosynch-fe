@@ -134,16 +134,16 @@ export default function HappeningDetails() {
     return (
         happening && (
             <>
-                <Container className='mb-5'>
-                    <Row>
+                <Container className='my-5 rounded shadow pb-5 bg-white'>
+                    <Row className= 'mt-5'>
                         <Col>
-                            <div className={cn(styles.coverDiv)}>
+                            <div className={cn(styles.coverDiv,'my-5')}>
                                 <Image className={cn(styles.cover)} src={happening.cover}/>
                             </div>
-                        </Col>
+                        </Col> 
                     </Row>
-                    <Row className='my-3'>
-                        <Col>
+                    <Row className='justify-content-md-center my-1'>
+                    <Col xs={10} md={6}>
                         <h3>{happening.title}</h3>
                         <p>Start: {happening.startFormatted}</p> 
                         <p>End: {happening.endFormatted}</p>
@@ -152,36 +152,31 @@ export default function HappeningDetails() {
                         </Col>
                     </Row>
                     <Row className="justify-content-md-center" >
-                        <Col xs={10} md={6}>
+                        <Col xs={8} md={4} className='border p-3 shadow-sm'>  
+                        <h5>Sign up!</h5>
                         <Form onSubmit={registerClient}>
                             <Form.Group className="mb-3" controlId="clientName">
-                                <Form.Label>Name</Form.Label>
                                 <Form.Control required type="text" name='name' value={clientName} onChange={(e) => { setClientName(e.target.value) }} placeholder="Enter Name" />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicSurname">
-                                <Form.Label>Surname</Form.Label>
                                 <Form.Control required type="text" name='surname' value={clientSurname} onChange={(e) => { setClientSurname(e.target.value) }} placeholder="Enter Surname" />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formDateOfBirth">
-                                <Form.Label>Date Of Birth</Form.Label>
-                                <Form.Control required type="date" name='dateOfBirth' value={clientDateOfBirth} onChange={(e) => { setClientDateOfBirth(e.target.value) }} />
-                            </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
                                 <Form.Control required type="email" name='email' value={clientEmail} onChange={(e) => { setClientEmail(e.target.value) }} placeholder="Enter email" />
-                                <Form.Text className="text-muted">
-                                    We'll never share your email with anyone else.
-                                </Form.Text>
                             </Form.Group>
-                            <Button variant="primary" type="submit">Register</Button>
+                            <div className="d-flex justify-content-evenly">
+                                    <Button variant="primary" type="submit">Register</Button>
+                            </div>
                         </Form>
                         </Col>
                     </Row>
-                    <Row className='d-flex justify-content-evenly px-2 my-3 text-center'>
+                    </Container>
+                    <Container className='rounded shadow  bg-white'>
+                    <Row className='d-flex justify-content-evenly px-2 my-5 py-2 text-center'>
                         {isLogged && (
                             <Col>
-                                <h5>Promoter Area</h5>
-                                <div className="d-flex justify-content-evenly">
+                                <h5 className='mt-3'>Promoter Area</h5>
+                                <div className="d-flex justify-content-evenly py-3">
                                     <Button className='' onClick={() => handleNavigate(`/events/${id}/update`)}>Update Event</Button>
                                     <Button className='' variant="info" >Client List</Button>
                                     <Button className='' variant="danger" onClick={deleteHappening}>Delete Event </Button>

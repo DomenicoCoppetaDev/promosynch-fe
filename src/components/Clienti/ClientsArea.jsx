@@ -95,7 +95,7 @@ export default function ClientsArea() {
   };
 
   return (
-    <Container className='my-5 text-center'>
+    <Container className='my-5 pt-5 text-center'>
       <Row>
         <h4>Your Clients</h4>
       </Row>
@@ -113,13 +113,15 @@ export default function ClientsArea() {
           </select>
         </div>
         </Col>
-        <Col className="text-center py-3 px-3">
-          <Button onClick={handleDownloadCSV}>Download CSV</Button>
-        </Col>
       </Row>
       <Row>
         <Col className="text-center py-3 px-3">
           <AgGridExample data={clientsToShow}/>
+        </Col>
+      </Row>
+      <Row>
+        <Col className="text-center py-3 px-3">
+          <Button onClick={handleDownloadCSV}>Download CSV</Button>
         </Col>
       </Row>
     </Container>

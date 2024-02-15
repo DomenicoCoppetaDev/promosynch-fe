@@ -4,7 +4,8 @@ import { ToastContainer } from 'react-toastify';
 import { Route, Routes } from 'react-router-dom';
 import Navbarps from './components/Navbar/Navbarps.jsx';
 import ToolBar from './components/Toolbar/Toolbar.jsx';
-import Login from './components/Login.jsx';
+import SideBar from './components/Sidebar/Sidebar.jsx';
+import Login from './components/Login/Login.jsx';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import ProfilePromoter from './components/Promoters/ProfilePromoter.jsx';
 import RegisterPromoter from './components/Promoters/RegisterPromoter.jsx';
@@ -17,6 +18,7 @@ import { useState, useEffect} from 'react';
 import Clients from './components/Clienti/Clients.jsx';
 import ThemeContext from './context/theme.js';
 import MyFooter from './components/MyFooter.jsx';
+import { Container } from 'react-bootstrap';
 
 
 function App() {
@@ -44,8 +46,10 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{theme, setTheme}}>
-    <div className={`${theme} App`}>  
+    <div className={`${theme} App`} style={{ minHeight: '100vh', maxWidth: '100%' }}>  
       <Navbarps theme={theme} setTheme={setTheme} />
+      <SideBar />
+      <Container fluid className='p-0'>
       <Routes>
         <Route path='/' exact element={<Login />} />
         <Route path='/promoters/register' element={<RegisterPromoter />} />
@@ -58,9 +62,10 @@ function App() {
         <Route path='/events/:id' element={<HappeningDetails />} />
         <Route path='/terms' element={<Terms />} />
       </Routes>
+      </Container>
       {/* <MyFooter /> */}
-    </div>
       <ToolBar />
+    </div>
       <ToastContainer position="bottom-center" />
     </ThemeContext.Provider>
   );

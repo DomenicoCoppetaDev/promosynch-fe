@@ -10,7 +10,8 @@ export default function useJwt() {
 
     const promoterData = {
         promoterId: localStorage.getItem('promoterId') || searchParams.get('promoterId'),
-        token: localStorage.getItem('token') ||  searchParams.get('token')
+        token: localStorage.getItem('token') ||  searchParams.get('token'),
+
     }
 
     
@@ -34,7 +35,7 @@ export default function useJwt() {
         if (window.location.search) {
             navigate(window.location.pathname)
         }
-    }, [promoterData, navigate])
+    }, [promoterData, navigate, promoterData])
 
     return promoterData
 }

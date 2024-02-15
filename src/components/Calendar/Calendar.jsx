@@ -29,7 +29,7 @@ export default function MyMultiMonthCalendar({events}) {
   };
 
   return (
-    <FullCalendar
+    <FullCalendar className="mt-5"
       {...calendarOptions}
     />
   );

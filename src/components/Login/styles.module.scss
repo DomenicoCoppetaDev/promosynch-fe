@@ -1,0 +1,31 @@
+.back {
+    background-color: aliceblue;
+    background-position: center;
+    padding-left: 100vh;
+    min-height: 100vh;
+    max-width: 100%;
+}
+.cardLogin {
+    min-width: 350px;
+    overflow: hidden;
+    background-color:aliceblue;
+}
+
+.loginCardTitle {
+    background-color: rgb(0, 128, 124);
+    color: white;
+}
+
+.logoProm {
+    width: 100%;
+    height: auto; // L'altezza si adatta proporzionalmente per mantenere l'aspetto originale
+    display: block;
+}
+
+.logoDiv {
+    height: 100px;
+    width: 100px;
+    background-color: transparent;
+    overflow: hidden;
+    margin: 0 auto; 
+}

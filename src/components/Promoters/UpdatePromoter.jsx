@@ -26,7 +26,10 @@ export default function UpdatePromoter() {
     name: "",
     surname: "",
     dateOfBirth: "",
-    avatar: null,
+    password: "",
+    newPassword: "",
+    confirmPassword: "",
+    newEmail: "",
   });
 
   useEffect(() => {
@@ -153,19 +156,61 @@ export default function UpdatePromoter() {
       console.error(error);
     }
   };
+
+  const updateCredentials = async (e) => {
+    e.preventDefault();
+  
+    const updatedData = {};
+    let formChanged = false;
+  
+    for (const key in formData) {
+      if (formData[key] !== promoter[key]) {
+        updatedData[key] = formData[key];
+        formChanged = true;
+      }
+    }
+  
+    if (!formChanged) {
+      toast.success('Profile is up to date.');
+      navigate(`/promoters/${id}`);
+      return;
+    }
+  
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/promoters/${id}/credentials`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      });
+  
+      if (response.ok) {
+        navigate(`/promoters/${id}`);
+        toast.success('Profile successfully updated');
+      } else {
+        console.error('Update failed');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   
 
   return (
     promoter && (
-      <Container className='p-3'>
+      <Container className='p-3 pb-5 my-5'>
         <Row className="d-flex justify-content-center">
           <Col xs={12} md={6}>
+          <div className="d-flex justify-content-evenly">
             <div className={cn(
               styles.profilePicDiv,
               'rounded-circle mb-3 me-3')}>
               {promoter.avatar && <Image className={cn(styles.profilePic)} src={promoter.avatar} alt="Promoter Avatar" />}
             </div>
-            <Form onSubmit={updateAvatar}>
+          </div>
+            <Form onSubmit={updateAvatar} className="my-2">
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Upload New Profile Picture</Form.Label>
                 <Form.Control
@@ -183,7 +228,7 @@ export default function UpdatePromoter() {
               </Button>
               </div>
             </Form>
-            <Form onSubmit={updatePromoter}>
+            <Form onSubmit={updatePromoter}  className="my-3">
               <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Enter New Name</Form.Label>
                 <Form.Control
@@ -206,8 +251,53 @@ export default function UpdatePromoter() {
               </Form.Group>
               <div className="d-flex justify-content-evenly">
                 <Button variant="primary" type="submit">
-                  Update
+                  Update Info
                 </Button>
+              </div>
+            </Form>
+            <Form onSubmit={updateCredentials} className="my-3">
+              <Form.Group className="mb-3" controlId="formBasicOldPassword">
+                <Form.Label>Enter Old Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicNewPassword">
+                <Form.Label>Enter New Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="newPassword"
+                  value={formData.newPassword}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+                <Form.Label>Confirm New Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="newEmail">
+                <Form.Label>Enter New Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  name="newEmail"
+                  value={formData.newEmail}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
+              <div className="d-flex justify-content-evenly">
+                <Button variant="primary" type="submit">
+                  Update Credentials
+                </Button>
+              </div>
+              <div className="d-flex justify-content-evenly my-4">
                 <Button variant="danger" onClick={handleCancel}>
                   Cancel
                 </Button>

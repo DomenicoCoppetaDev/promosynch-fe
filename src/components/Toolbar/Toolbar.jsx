@@ -28,10 +28,9 @@ export default function ToolBar() {
       <Container fluid
         className={cn(
           styles.toolbar,
-          'position-absolute',
+          'position-fixed',
           'd-flex',
-          'd-lg-none',  
-          'bg-primary',
+          'd-lg-none d-xl-none',
           'fixed-bottom',
           'align-items-center',
           'text-white',

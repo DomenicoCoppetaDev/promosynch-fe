@@ -74,29 +74,31 @@ export default function ProfilePromoter() {
 
   return (
     promoter && (
-    <Container className='p-3' style={{ minHeight: '100vh',}}>
+      <Container className={cn(styles.back,'pt-5')}>
         <Row className="m-5 justify-content-md-center">
-          <Col xs={12} md={6} className='px-0 me-5'>
+          <Col xs={12} md={6} className='px-0'>
+          <div className="text-center border p-3 shadow rounded">
           <div className="d-flex justify-content-evenly">
             <div className={cn(
               styles.profilePicDiv,
-              'rounded-circle mb-3 me-3')}>
+              'rounded-circle mb-3')}>
               {promoter.avatar && <Image className={cn(styles.profilePic)}src={promoter.avatar} alt="Promoter Avatar" />}
             </div>
             </div>
-              <p>Name: {promoter.name}</p>
-              <p>Surname:  {promoter.surname}</p>
-              <p>Email:  {promoter.email}</p>
+              <h5>{promoter.name} {promoter.surname}</h5>
+              <p></p>
+              <p>{promoter.email}</p>
+            </div>
           </Col>
         </Row>
         <Row className="text-center my-2">
-          <Col>
+          <Col className="d-flex justify-content-center gap-2">
               <Button onClick={() => handleNavigate(`/promoters/${id}/update`)}>Edit Profile <PencilSquare /></Button>
+              <Button variant="danger" onClick={deletedPromoter}>Delete Profile</Button>    
           </Col>
         </Row>
         <Row className="text-center">
           <Col>
-              <Button variant="danger" onClick={deletedPromoter}>Delete Profile</Button>    
           </Col>
         </Row>
     </Container>

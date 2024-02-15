@@ -35,8 +35,8 @@ export default function Dashboard() {
     }, [promoterId]);
 
     return (
-        <Container className="mt-3">
-          <Row >
+        <Container className="p-5">
+          <Row className="my-5">
                 <MyCalendar events={happeningsDash}/>
           </Row>
             <Row>

@@ -91,7 +91,7 @@ export default function CreateHappening() {
     };
 
     return (
-    <Container className='px-5'>
+    <Container className='p-5 mt-5'>
         <div className='text-center'>
             <h4>Create Event</h4>
         </div>

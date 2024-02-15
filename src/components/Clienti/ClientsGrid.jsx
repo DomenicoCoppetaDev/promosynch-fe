@@ -9,9 +9,9 @@ export default function AgGridExample({data}){
 
   // Definizione delle colonne della griglia
   const columnDefs = [
-    { headerName: 'Name', field: 'name', flex:2 },
+    { headerName: '', field: 'name', flex:2 },
     { headerName: 'Surname', field: 'surname', flex:2 },
-    { headerName: 'Email', field: 'email', flex:6 },
+    { headerName: 'Email', field: 'email', flex:4 },
     { headerName: 'Checked-In', field: 'checkedIn', cellDataType:'boolean', flex:1}
   ];
 
@@ -21,6 +21,7 @@ export default function AgGridExample({data}){
         columnDefs={columnDefs}
         rowData={rowData}
         domLayout='autoHeight'
+        suppressColumnHeaders={true}
       />
     </div>
   );

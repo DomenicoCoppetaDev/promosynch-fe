@@ -8,6 +8,7 @@ import cn from 'classnames';
 
 export default function UpdateHappening() {
     const { id } = useParams();
+    console.log('event = ' + id)
     const navigate = useNavigate();
     const { promoterId, token } = useJwt();
 
@@ -143,7 +144,7 @@ export default function UpdateHappening() {
         }
     
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}v/events/${id}/update`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/events/${id}/update`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${token}`,
