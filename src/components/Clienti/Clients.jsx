@@ -10,7 +10,7 @@ export default function Clients() {
   const { promoterId, token} = useJwt();
 
     return (
-        <Container style={{ minHeight: '100vh'}}>
+        <Container className='my-5 rounded shadow pb-3'>
             <Row>
                 <ClientsArea />
             </Row>

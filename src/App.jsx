@@ -49,7 +49,7 @@ function App() {
     <div className={`${theme} App`} style={{ minHeight: '100vh', maxWidth: '100%' }}>  
       <Navbarps theme={theme} setTheme={setTheme} />
       <SideBar />
-      <Container fluid className='p-0'>
+      <Container fluid className='pt-5 pe-0 ps-0 pb-0'>
       <Routes>
         <Route path='/' exact element={<Login />} />
         <Route path='/promoters/register' element={<RegisterPromoter />} />

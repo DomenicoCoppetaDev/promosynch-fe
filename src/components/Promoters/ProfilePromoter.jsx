@@ -93,7 +93,7 @@ export default function ProfilePromoter() {
         </Row>
         <Row className="text-center my-2">
           <Col className="d-flex justify-content-center gap-2">
-              <Button onClick={() => handleNavigate(`/promoters/${id}/update`)}>Edit Profile <PencilSquare /></Button>
+              <Button className="buttonPrimary" onClick={() => handleNavigate(`/promoters/${id}/update`)}>Edit Profile <PencilSquare /></Button>
               <Button variant="danger" onClick={deletedPromoter}>Delete Profile</Button>    
           </Col>
         </Row>

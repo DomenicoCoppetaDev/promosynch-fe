@@ -1,7 +1,4 @@
 .back {
-    background-color: aliceblue;
-    background-position: center;
-    padding-left: 100vh;
     min-height: 100vh;
     max-width: 100%;
 }
@@ -28,4 +25,15 @@
     background-color: transparent;
     overflow: hidden;
     margin: 0 auto; 
+}
+
+.title {
+
+}
+
+.buttonprimary {
+    background-color: rgb(0, 128, 124);
+    border: 0px solid;
+    height: 35px;
+    color: white;
 }

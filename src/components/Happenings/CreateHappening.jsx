@@ -91,7 +91,7 @@ export default function CreateHappening() {
     };
 
     return (
-    <Container className='p-5 mt-5'>
+    <Container className='my-5 rounded shadow p-3'>
         <div className='text-center'>
             <h4>Create Event</h4>
         </div>
@@ -147,7 +147,9 @@ export default function CreateHappening() {
                     onChange={(e) => {setDescription(e.target.value)}}  
                     placeholder="Type here the details of your event" />
             </Form.Group>
-            <Button variant="primary" type="submit">Submit</Button>
+            <div className='text-center'>
+                <Button className='buttonPrimary' variant="primary" type="submit">Submit</Button>
+            </div>
         </Form>
     </Container>
     )

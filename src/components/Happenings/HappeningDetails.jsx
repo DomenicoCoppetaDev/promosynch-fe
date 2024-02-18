@@ -6,14 +6,14 @@ import styles from './styles.module.scss';
 import cn from 'classnames';
 
 
+
 export default function HappeningDetails() {
     const { id } = useParams();
-
     const [happening, setHappening] = useState();
     const navigate = useNavigate();
     const promoterId = localStorage.getItem('promoterId');
     const token = localStorage.getItem('token');
-    
+
     const [isLogged, setIsLogged] = useState(false);
 
     useEffect(() => {
@@ -34,11 +34,11 @@ export default function HappeningDetails() {
         const year = date.getFullYear();
         const hours = date.getHours().toString().padStart(2, '0');
         const minutes = date.getMinutes().toString().padStart(2, '0');
-        return `${day}-${month}-${year} ${hours}:${minutes}`;
+        return `${hours}:${minutes} ${day}/${month}/${year}`;
     };
-        const handleNavigate = (path) => {
-            navigate(path);
-        };
+    const handleNavigate = (path) => {
+        navigate(path);
+    };
 
     //fetch evento
     useEffect(() => {
@@ -65,9 +65,9 @@ export default function HappeningDetails() {
         const userConfirmed = window.confirm('Do you really want to delete your event?');
 
         if (!userConfirmed) {
-          return;
+            return;
         }
-      
+
         fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/events/` + id, {
             method: 'DELETE',
             headers: {
@@ -134,51 +134,51 @@ export default function HappeningDetails() {
     return (
         happening && (
             <>
-                <Container className='my-5 rounded shadow pb-5 bg-white'>
-                    <Row className= 'mt-5'>
+                <Container className='mb-5 rounded shadow pb-5'>
+                    <Row className=''>
                         <Col>
-                            <div className={cn(styles.coverDiv,'my-5')}>
-                                <Image className={cn(styles.cover)} src={happening.cover}/>
+                            <div className={cn(styles.coverDiv, 'my-5')}>
+                                <Image className={cn(styles.cover)} src={happening.cover} />
                             </div>
-                        </Col> 
+                        </Col>
                     </Row>
                     <Row className='justify-content-md-center my-1'>
-                    <Col xs={10} md={6}>
-                        <h3>{happening.title}</h3>
-                        <p>Start: {happening.startFormatted}</p> 
-                        <p>End: {happening.endFormatted}</p>
-                        <p>Ticket Price: {happening.ticketPrice}</p>
-                        <p>{happening.description}</p>
+                        <Col xs={10} md={6}>
+                            <h3>{happening.title}</h3>
+                            <p>Start: {happening.startFormatted}</p>
+                            <p>End: {happening.endFormatted}</p>
+                            <p>Ticket Price: {happening.ticketPrice}</p>
+                            <p>{happening.description}</p>
                         </Col>
                     </Row>
                     <Row className="justify-content-md-center" >
-                        <Col xs={8} md={4} className='border p-3 shadow-sm'>  
-                        <h5>Sign up!</h5>
-                        <Form onSubmit={registerClient}>
-                            <Form.Group className="mb-3" controlId="clientName">
-                                <Form.Control required type="text" name='name' value={clientName} onChange={(e) => { setClientName(e.target.value) }} placeholder="Enter Name" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicSurname">
-                                <Form.Control required type="text" name='surname' value={clientSurname} onChange={(e) => { setClientSurname(e.target.value) }} placeholder="Enter Surname" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Control required type="email" name='email' value={clientEmail} onChange={(e) => { setClientEmail(e.target.value) }} placeholder="Enter email" />
-                            </Form.Group>
-                            <div className="d-flex justify-content-evenly">
-                                    <Button variant="primary" type="submit">Register</Button>
-                            </div>
-                        </Form>
+                        <Col xs={8} md={4} className='border p-3 shadow-sm'>
+                            <h5>Sign up!</h5>
+                            <Form onSubmit={registerClient}>
+                                <Form.Group className="mb-3" controlId="clientName">
+                                    <Form.Control required type="text" name='name' value={clientName} onChange={(e) => { setClientName(e.target.value) }} placeholder="Enter Name" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicSurname">
+                                    <Form.Control required type="text" name='surname' value={clientSurname} onChange={(e) => { setClientSurname(e.target.value) }} placeholder="Enter Surname" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Control required type="email" name='email' value={clientEmail} onChange={(e) => { setClientEmail(e.target.value) }} placeholder="Enter email" />
+                                </Form.Group>
+                                <div className="d-flex justify-content-evenly">
+                                    <Button className='buttonPrimary' type="submit">Register</Button>
+                                </div>
+                            </Form>
                         </Col>
                     </Row>
-                    </Container>
-                    <Container className='rounded shadow  bg-white'>
+                </Container>
+                <Container className='rounded shadow bg-white'>
                     <Row className='d-flex justify-content-evenly px-2 my-5 py-2 text-center'>
                         {isLogged && (
                             <Col>
                                 <h5 className='mt-3'>Promoter Area</h5>
-                                <div className="d-flex justify-content-evenly py-3">
-                                    <Button className='' onClick={() => handleNavigate(`/events/${id}/update`)}>Update Event</Button>
-                                    <Button className='' variant="info" >Client List</Button>
+                                <div className="d-flex justify-content-center gap-5 py-3">
+                                    <Button className='buttonPrimary' onClick={() => handleNavigate(`/events/${id}/update`)}>Update Event</Button>
+                                    {/* <Button className='' variant="info" >Client List</Button> */}
                                     <Button className='' variant="danger" onClick={deleteHappening}>Delete Event </Button>
                                 </div>
                             </Col>

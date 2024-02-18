@@ -1,10 +1,6 @@
 
-.dark {
-  background-color: #212528;
-  color: white;
-}
 
-.light {
-  background-color: aliceblue;
-  color: #222;
+.button-primary {
+  background-color: rgb(0, 128, 124);
+  color: red;
 }

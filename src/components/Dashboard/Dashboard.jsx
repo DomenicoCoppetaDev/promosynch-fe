@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Spinner} from "react-bootstrap";
+import { Container, Row, Button, Col} from "react-bootstrap";
 import { toast } from "react-toastify";
-import styles from './styles.module.scss';
-import cn from 'classnames';
-import { useNavigate } from "react-router-dom";
+import { PlusCircle} from 'react-bootstrap-icons';
 import HappeningsArea from '../Happenings/HappeningsArea.jsx';
 import MyCalendar from "../Calendar/Calendar.jsx";
 import useJwt from "../../hook/useJwt.js";
+import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
 
   const [happeningsDash,  setHappeningsDash] = useState([]);
 
   const { promoterId, token } = useJwt();
+  const navigate = useNavigate();
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
 
   useEffect(() => {
     fetch ( `${process.env.REACT_APP_BACKEND_ENDPOINT}/events/promoter/`+ promoterId, {
@@ -32,15 +37,20 @@ export default function Dashboard() {
         toast.error(error.message);
         console.error(error);
       });
-    }, [promoterId]);
+    }, [promoterId,token]);
 
     return (
-        <Container className="p-5">
+        <Container className='my-5 rounded shadow p-3'>
           <Row className="my-5">
                 <MyCalendar events={happeningsDash}/>
           </Row>
             <Row>
                 <HappeningsArea happenings={happeningsDash} />
+            </Row>
+            <Row className="justify-content-center my-3">
+              <Col className="d-flex justify-content-center">
+                <Button className="buttonPrimary" onClick={() => handleNavigate('/events/create')}><PlusCircle /> Add Event</Button>
+              </Col>
             </Row>
       </Container>
     );

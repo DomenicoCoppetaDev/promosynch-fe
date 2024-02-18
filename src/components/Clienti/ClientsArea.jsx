@@ -95,14 +95,17 @@ export default function ClientsArea() {
   };
 
   return (
-    <Container className='my-5 pt-5 text-center'>
-      <Row>
+    <Container className='my-2 text-center'>
+      <Row className='my-3'> 
         <h4>Your Clients</h4>
       </Row>
-      <Row>
+      <Row className='justify-content-md-center'>
         <Col>
-        <div>
-          <h6>Select Event: </h6>
+          <p className='mb-1'>Select Event: </p>
+        </Col>
+      </Row>
+      <Row className='mb-5'>
+        <Col>
           <select id="dropdown" variant="primary" onChange={(e) => handleEventSelect(e.target.value)}>
             <option className="dropdown-item" value="all">All</option>
             {happenings.map((happening) => (
@@ -111,17 +114,35 @@ export default function ClientsArea() {
               </option>
             ))}
           </select>
-        </div>
         </Col>
       </Row>
+      {/* <Row >
+          <Col xs={3} className='p-0'>
+           <p className='m-2 d-block text-start ms-5'>Name</p>
+          </Col>
+          <Col xs={3} className='p-0'>
+              <p className='m-2 d-block text-start'>Surname</p>
+          </Col>
+          <Col xs={4} className='p-0'>
+              <p className='m-2 d-block text-start'>email</p>
+          </Col>
+          <Col xs={2} className='p-0'>
+              <p className='m-2 d-block text-start'>Checked-In</p>
+          </Col>
+      </Row> */}
+      {/* <Row>
+          <Col>
+              <ClientsList clientsToShow={clientsToShow}/>
+          </Col>
+      </Row> */}
       <Row>
         <Col className="text-center py-3 px-3">
           <AgGridExample data={clientsToShow}/>
         </Col>
       </Row>
       <Row>
-        <Col className="text-center py-3 px-3">
-          <Button onClick={handleDownloadCSV}>Download CSV</Button>
+        <Col className='text-center py-3 px-3'>
+          <Button className='buttonPrimary'  onClick={handleDownloadCSV} >Download CSV</Button>
         </Col>
       </Row>
     </Container>

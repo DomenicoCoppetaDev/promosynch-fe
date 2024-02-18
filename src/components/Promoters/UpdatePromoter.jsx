@@ -223,7 +223,7 @@ export default function UpdatePromoter() {
                 </Form.Text>
               </Form.Group>
               <div className="d-flex justify-content-evenly">
-              <Button variant="primary" type="submit">
+              <Button className="buttonPrimary" type="submit">
                 Update Avatar
               </Button>
               </div>
@@ -250,7 +250,7 @@ export default function UpdatePromoter() {
                 />
               </Form.Group>
               <div className="d-flex justify-content-evenly">
-                <Button variant="primary" type="submit">
+                <Button className="buttonPrimary" type="submit">
                   Update Info
                 </Button>
               </div>
@@ -293,7 +293,7 @@ export default function UpdatePromoter() {
                 />
               </Form.Group>
               <div className="d-flex justify-content-evenly">
-                <Button variant="primary" type="submit">
+                <Button className="buttonPrimary" type="submit">
                   Update Credentials
                 </Button>
               </div>

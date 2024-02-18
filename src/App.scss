@@ -2,10 +2,20 @@
 .dark {
     background-color: #212528;
     color: white;
-  }
+}
   
-  .light {
-    background-color: #FAFBFD;
-    color: #222;
-  }
-  
+.light {
+  background-color: #f5fffc;
+  color: #222;
+}
+
+.buttonPrimary {
+  background-color: rgb(0, 128, 124);
+  border: 0px solid;
+  height: 38px;
+  color: white;
+}
+
+.customHeader {
+  font-size: 300%;
+}

@@ -20,7 +20,7 @@ export default function UpdateHappening() {
         const hours = date.getHours().toString().padStart(2, '0');
         const minutes = date.getMinutes().toString().padStart(2, '0');
         return `${day}-${month}-${year} ${hours}:${minutes}`;
-    };
+    }; 
 
     const handleCancel = () => {
         navigate(`/events/${id}`);
@@ -193,7 +193,7 @@ export default function UpdateHappening() {
                             </Form.Text>
                         </Form.Group>
                         <div className="d-flex justify-content-evenly">
-                        <Button variant="primary" type="submit">
+                        <Button className='buttonPrimary' type="submit">
                             Update Cover
                         </Button>
                         </div>
@@ -261,7 +261,7 @@ export default function UpdateHappening() {
                             />
                         </Form.Group>
                         <div className="d-flex justify-content-evenly">
-                            <Button variant="primary" type="submit">
+                            <Button className="buttonPrimary" type="submit">
                             Update
                             </Button>
                             <Button variant="danger" onClick={handleCancel}>
