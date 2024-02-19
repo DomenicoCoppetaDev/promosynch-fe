@@ -22,11 +22,11 @@ export default function Navbarps({theme, setTheme}) {
 
   return (
     <>
-          <Navbar collapseOnSelect className={`
-              ${theme === 'light' ? 'bg-light border-bottom mx-0 ' : 'bg-dark border-bottom border-light mx-0 '}`}
-                variant={theme} fixed="top"> 
+          <Navbar collapseOnSelect expand="lg" className={`
+              ${theme === 'light' ? 'bg-light border-bottom mx-0' : 'bg-dark border-bottom border-light mx-0'}`}
+                variant={theme} fixed="top">
             <Container fluid className='mx-0'>
-              <Navbar.Brand href={'/promoters/:id/dashboard'}>
+            <Navbar.Brand className='p-0' href={'/promoters/:id/dashboard'}>
               <div className='d-flex align-items-center'>
               <div className={cn(styles.logoDiv,'rounded-circle text-center')}><Image className={cn(styles.logoProm)} src={promosynch}/></div>
                 Promosynch
@@ -35,12 +35,12 @@ export default function Navbarps({theme, setTheme}) {
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
+
                 </Nav>
-                <Nav className='text-end'>
-                  <div className='d-flex'>
-                  <Nav.Link onClick={handleLogout} href={`/`}>Logout</Nav.Link>
-                  <div className='text-end'>
-                  <Button
+                <Nav>
+                <Nav.Link onClick={handleLogout} href={`/`}>Logout</Nav.Link>
+                <Nav.Link href={`/promoters/:id`} className='d-md-block d-lg-none'>Profile</Nav.Link>
+                <Button
                     className='rounded-circle'
                     variant = {theme === 'dark' ? 'dark' : 'light'}
                     type="button"
@@ -48,8 +48,6 @@ export default function Navbarps({theme, setTheme}) {
                     onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                     >{theme === 'light' ? <i className="bi bi-moon-stars-fill"></i>  : <i className="bi bi-brightness-high-fill"></i>}
                   </Button>
-                  </div>
-                  </div>
                 </Nav>
               </Navbar.Collapse>
             </Container>

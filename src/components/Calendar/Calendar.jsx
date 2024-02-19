@@ -26,6 +26,7 @@ export default function MyMultiMonthCalendar({events}) {
     plugins: [dayGridPlugin],
     height: 400,
     events: events,
+    themeSystem: 'bootstrap5'
   };
 
   return (

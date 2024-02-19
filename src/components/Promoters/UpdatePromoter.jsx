@@ -51,7 +51,7 @@ export default function UpdatePromoter() {
         toast.error(error.message);
         console.error(error);
       });
-  }, [id]);
+  }, [promoterId, token]);
 
 
   const handleInputChange = (e) => {
@@ -197,6 +197,7 @@ export default function UpdatePromoter() {
     }
   };
   
+
 
   return (
     promoter && (

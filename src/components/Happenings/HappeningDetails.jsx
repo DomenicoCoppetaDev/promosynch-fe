@@ -143,7 +143,7 @@ export default function HappeningDetails() {
                         </Col>
                     </Row>
                     <Row className='justify-content-md-center my-1'>
-                        <Col xs={10} md={6}>
+                        <Col xs={10} md={4}>
                             <h3>{happening.title}</h3>
                             <p>Start: {happening.startFormatted}</p>
                             <p>End: {happening.endFormatted}</p>

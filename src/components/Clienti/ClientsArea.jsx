@@ -5,6 +5,7 @@ import { Col, Row, Container, Button } from 'react-bootstrap';
 import useJwt from '../../hook/useJwt.js';
 import Papa from 'papaparse';
 import AgGridExample from './ClientsGrid.jsx';
+import ClientsList from './ClientsList.jsx';
 
 
 export default function ClientsArea() {
@@ -116,30 +117,30 @@ export default function ClientsArea() {
           </select>
         </Col>
       </Row>
-      {/* <Row >
+      <Row >
           <Col xs={3} className='p-0'>
-           <p className='m-2 d-block text-start ms-5'>Name</p>
+           <p className='m-2 d-block text-center ms-5'>Name</p>
           </Col>
           <Col xs={3} className='p-0'>
-              <p className='m-2 d-block text-start'>Surname</p>
+              <p className='m-2 d-block text-center'>Surname</p>
           </Col>
           <Col xs={4} className='p-0'>
-              <p className='m-2 d-block text-start'>email</p>
+              <p className='m-2 d-block text-center'>email</p>
           </Col>
           <Col xs={2} className='p-0'>
-              <p className='m-2 d-block text-start'>Checked-In</p>
+              <p className='m-2 d-block text-center me-5'>Checked-In</p>
           </Col>
-      </Row> */}
-      {/* <Row>
+      </Row>
+      <Row>
           <Col>
               <ClientsList clientsToShow={clientsToShow}/>
           </Col>
-      </Row> */}
-      <Row>
+      </Row>
+      {/* <Row>
         <Col className="text-center py-3 px-3">
           <AgGridExample data={clientsToShow}/>
         </Col>
-      </Row>
+      </Row> */}
       <Row>
         <Col className='text-center py-3 px-3'>
           <Button className='buttonPrimary'  onClick={handleDownloadCSV} >Download CSV</Button>
