@@ -180,6 +180,7 @@ export default function UpdateHappening() {
                     </Col>
                 </Row>
                 <Row>
+                  <Col>
                     <Form onSubmit={updateCover}>
                         <Form.Group controlId="formFile" className="mb-3">
                             <Form.Label>Upload Event Cover</Form.Label>
@@ -269,7 +270,7 @@ export default function UpdateHappening() {
                             </Button>
                         </div>
                     </Form>
-                
+                    </Col>
                 </Row>
             </Container>
             </>
