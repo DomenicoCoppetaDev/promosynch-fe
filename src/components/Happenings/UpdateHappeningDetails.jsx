@@ -171,7 +171,7 @@ export default function UpdateHappening() {
 
        happening && (
             <>
-            <Container className='p-3 mb-5' style={{ minHeight: '100vh' }}>
+            <Container className='my-5 rounded shadow p-3'>
                 <Row>
                     <Col>
                         <div className={cn(styles.coverDiv)}>
