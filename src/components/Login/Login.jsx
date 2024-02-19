@@ -136,7 +136,7 @@ export default function Login() {
                                     />
                                 <hr />
                                 <p className='text-center my-0'>First time with us?</p>
-                                <button className={cn(styles.buttonprimary, 'mx-0 w-100 shadow-sm rounded')} type="submit" >Register</button>
+                                <button className={cn(styles.buttonprimary, 'mx-0 w-100 shadow-sm rounded')}>Register</button>
                             </div>
                         </Form>
                     </div>
