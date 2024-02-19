@@ -17,6 +17,7 @@ export default function SingleHappening({ happening }) {
                     <Col className=''>
                         <p className='m-2 d-block text-start'>{happening.title}</p>
                     </Col>
+                    
                     <Col>
                         <p className='m-2 d-block text-center'>{happening.clients.length}</p>
                     </Col>
